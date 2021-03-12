@@ -6,7 +6,7 @@ class NotebookController < ApplicationController
   end
 
   def notebook
-    @notebook = Notebook.find params[:id]
+    @notebook = Notebook.find_by(slug: params[:slug])
     @pages = @notebook.pages
     render json: { notebook: @notebook, pages: @pages }
   end

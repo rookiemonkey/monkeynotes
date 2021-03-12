@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_055132) do
 
   create_table "notebooks", force: :cascade do |t|
     t.string "subject"
+    t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

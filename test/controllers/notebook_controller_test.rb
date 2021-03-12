@@ -8,7 +8,7 @@ class NotebookControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "notebook#notebook should return the notebook and its pages" do
-    get notebook_path(1)
+    get notebook_path(notebooks(:one).slug)
     res = JSON.parse(response.body)
     assert res["notebook"].present? and !res["notebook"].nil?
     assert res["pages"].present? and !res["notebook"].nil?

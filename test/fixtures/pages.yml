@@ -6,13 +6,13 @@
 #
 
 one:
-  subject: "Rails"
+  subject: "Rails Test 1"
   content: "<p>all about rails</p>"
   id: 1
   notebook_id: 1
 
 two:
-  subject: "Rails"
+  subject: "Rails Test 2"
   content: "<p>all about rails</p>"
   id: 2
   notebook_id: 2

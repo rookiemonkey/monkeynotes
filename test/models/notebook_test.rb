@@ -18,5 +18,15 @@ class NotebookTest < ActiveSupport::TestCase
     @notebook.subject = ('a'*21)
     assert_not @notebook.save, error_message
   end
+
+  test "should reject subject that is already existing" do
+    error_message = "#{@error_message} reject subject that is already existing"
+    assert_not Notebook.create(subject: 'Sample').save, error_message
+  end
+
+  test "should reject subject that is already existing case-sensitive" do
+    error_message = "#{@error_message} reject subject that is already existing case-sensitive"
+    assert_not Notebook.create(subject: 'SaMPle').save, error_message
+  end
   
 end
