@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+@import './variables.scss';
+
+* {
+  font-family: 'Roboto Condensed', sans-serif !important;
+}
+
+body, html {
+  background-color: $light;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $red;
+  font-family: 'Roboto Condensed', sans-serif !important;
+  font-weight: 700;
+}
