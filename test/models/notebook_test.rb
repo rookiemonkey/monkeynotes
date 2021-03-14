@@ -13,9 +13,9 @@ class NotebookTest < ActiveSupport::TestCase
     assert_not @notebook.save, error_message
   end
 
-  test "should reject subject longer than 20 chars" do
-    error_message = "#{@error_message} reject empty subject longer than 20 chars"
-    @notebook.subject = ('a'*21)
+  test "should reject subject longer than 50 chars" do
+    error_message = "#{@error_message} reject empty subject longer than 50 chars"
+    @notebook.subject = ('a'*51)
     assert_not @notebook.save, error_message
   end
 
