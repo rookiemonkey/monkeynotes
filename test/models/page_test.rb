@@ -13,9 +13,9 @@ class PageTest < ActiveSupport::TestCase
     assert_not @page.save, error_message
   end
 
-  test 'should reject subject w/ more than 20 chars' do
-    error_message = "#{@error_message} reject subject w/ more than 20 chars"
-    @page.subject = ('a'*21)
+  test 'should reject subject w/ more than 50 chars' do
+    error_message = "#{@error_message} reject subject w/ more than 50 chars"
+    @page.subject = ('a'*51)
     assert_not @page.save, error_message
   end
 

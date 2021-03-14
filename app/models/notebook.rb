@@ -6,7 +6,7 @@ class Notebook < ApplicationRecord
 
   validates :subject, 
             uniqueness: { case_sensitive: false },
-            length: { within: 2..20 }
+            length: { within: 2..50 }
 
   def add_page(params)
     raise 'Please provide a subject' unless params[:subject].present?
