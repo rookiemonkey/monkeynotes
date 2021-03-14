@@ -5,5 +5,6 @@ class Page < ApplicationRecord
 
   validates :subject, length: { within: 2..50 }
   validates :content, presence: true
+  validates :language, presence: true
 
 end

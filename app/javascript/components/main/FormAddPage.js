@@ -44,6 +44,8 @@ const FormAddPage = () => {
 
         <input type="text" name="page_subject" placeholder="Page Subject" />
 
+        <input type="text" name="page_language" placeholder="Page Language" />
+
         <TrixEditor onChange={handleChangeEditor} />
 
         <select name="notebook_id" onChange={handleChangeOption}>

@@ -11,7 +11,8 @@ class Notebook < ApplicationRecord
   def add_page(params)
     raise 'Please provide a subject' unless params[:subject].present?
     raise 'Please provide a content' unless params[:content].present?
-    self.pages << Page.create(subject: params[:subject], content: params[:content])
+    raise 'Please provide a language' unless params[:language].present?
+    self.pages << Page.create(subject: params[:subject], content: params[:content], language: params[:language])
   end
 
 
