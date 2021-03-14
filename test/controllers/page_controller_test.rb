@@ -12,6 +12,7 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     post page_create_path, params: {
       content: "<p>created via post! for an existing notebook</p>",
       page_subject: 'Test Page',
+      page_language: 'ruby',
       notebook_subject: '', 
       notebook_id: @notebook.id
     }
@@ -27,6 +28,7 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     post page_create_path, params: {
       content: "<p>created via post! for an existing notebook</p>",
       page_subject: 'Test Page',
+      page_language: 'ruby',
       notebook_subject: '', 
       notebook_id: @notebook.id
     }
@@ -40,6 +42,7 @@ class PageControllerTest < ActionDispatch::IntegrationTest
       post page_create_path, params: {
         content: "<p>created via post! for a new notebook as well</p>", 
         page_subject: 'Test Page',
+        page_language: 'ruby',
         notebook_subject: 'New Notebook', 
         notebook_id: 'new'
       }

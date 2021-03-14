@@ -24,6 +24,8 @@ notebooks = [nb_1, nb_2, nb_3, nb_4, nb_5, nb_6, nb_7]
 
 notebooks.each do |nb|
   20.times do |n|
-    nb.pages << Page.create(subject: "#{nb.subject} #{n}", content: "<p>Content for #{nb.subject} #{n}</p>")
+    nb.pages << Page.create(subject: "#{nb.subject} #{n}", 
+                            content: "<p>Content for #{nb.subject} #{n}</p>",
+                            language: 'ruby')
   end
 end
