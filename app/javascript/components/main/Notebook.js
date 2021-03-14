@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
+import PageCard from './PageCard'
 
 const Notebook = () => {
   const [state, setState] = useState({})
@@ -18,8 +19,12 @@ const Notebook = () => {
     <React.Fragment>
       <Nav />
 
-      <p>You are view notebook</p>
-      <p>Name: {state.notebook && state.notebook.subject}</p>
+      <h2>{!state.notebook && "Loading ...."}</h2>
+
+      <h2>{state.notebook && state.notebook.subject}</h2>
+
+      {state.pages && state.pages.map(page => <PageCard page={page} />)}
+
     </React.Fragment>
   )
 }
