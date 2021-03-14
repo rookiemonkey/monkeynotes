@@ -2806,7 +2806,7 @@ escalade@^3.1.1:
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
@@ -3773,6 +3773,13 @@ interpret@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
+
+interweave@^12.7.1:
+  version "12.7.1"
+  resolved "https://registry.yarnpkg.com/interweave/-/interweave-12.7.1.tgz#efeaa2daff2c52d6390f26dd7fae6ad296e5c28c"
+  integrity sha512-CxBwsU7Tr4sOr2z2dbMc4qBlp6RPe69YC4mLGzVuqMWVGU0QZ9bX80zRBl/xH1vg1FjbmyqyAE9KrRAXoxXfIQ==
+  dependencies:
+    escape-html "^1.0.3"
 
 ip-regex@^2.1.0:
   version "2.1.0"

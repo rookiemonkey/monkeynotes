@@ -17,11 +17,13 @@ const Notebooks = () => {
     <React.Fragment>
       <Nav />
 
+      <h2>{!notebooks && "Loading ...."}</h2>
+
       <ul>
         {
           notebooks.map(n => (
             <li key={n.id}>
-              <Link to={n.slug} >{n.subject}</Link>
+              <h2><Link to={n.slug} >{n.subject}</Link></h2>
             </li>
           ))
         }
