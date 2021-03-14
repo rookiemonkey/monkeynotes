@@ -19,6 +19,8 @@ const Notebooks = () => {
 
       <h2>{!notebooks && "Loading ...."}</h2>
 
+      <Link to="/add/page">Add Page</Link>
+
       <ul>
         {
           notebooks.map(n => (

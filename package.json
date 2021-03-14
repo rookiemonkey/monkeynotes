@@ -14,7 +14,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "react-trix": "^0.8.0",
     "react_ujs": "^2.6.1",
+    "remove": "^0.1.5",
     "trix": "^1.2.0",
     "turbolinks": "^5.2.0"
   },
