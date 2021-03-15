@@ -6,7 +6,7 @@ const NotebookItem = ({ item }) => {
     <li key={item.notebook.id}>
       <h2><Link to={`notebook/${item.notebook.slug}`} >{item.notebook.subject}</Link></h2>
 
-      <ul>
+      <ul class="uk-list uk-list-hyphen uk-margin-medium-bottom" id="list-notebook-pages">
         {
           item.pages.map(page => (
             <li>

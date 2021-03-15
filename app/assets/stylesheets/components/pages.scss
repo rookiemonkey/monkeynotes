@@ -1,0 +1,9 @@
+
+#list-notebook-pages {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#list-notebook-pages>:first-child {
+  margin-top: 10px;
+}

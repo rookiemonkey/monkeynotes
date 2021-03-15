@@ -5,7 +5,6 @@ import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
 const PageCard = ({ page }) => {
 
-  console.log(page)
   const { language, content, subject } = page
   const html = styleCodeBlocks(content.body, language)
 
