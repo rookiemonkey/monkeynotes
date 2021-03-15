@@ -23,7 +23,7 @@ const Notebook = () => {
 
       <h2>{state.notebook && state.notebook.subject}</h2>
 
-      {state.pages && state.pages.map(page => <PageCard page={page} />)}
+      {state.pages && state.pages.map(page => <PageCard page={page} key={page.id} />)}
 
     </React.Fragment>
   )
