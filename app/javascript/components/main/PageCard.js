@@ -1,11 +1,11 @@
 import React from 'react'
 import { Markup } from 'interweave';
-import styleAllPreTags from '../utilities/styleAllPreTags';
+import styleCodeBlocks from '../utilities/styleCodeBlocks';
 
 const PageCard = ({ page }) => {
 
   const { language, content, subject } = page
-  const html = styleAllPreTags(content.body, language)
+  const html = styleCodeBlocks(content.body, language)
 
   return (
     <React.Fragment>

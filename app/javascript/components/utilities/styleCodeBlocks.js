@@ -4,7 +4,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { decode } from 'html-entities';
 
-export default function styleAllPreTags(str, lang) {
+const styleCodeBlocks = (str, lang) => {
   let strCopy = '' + str
   let openingTagPos = strCopy.indexOf('<pre>');
 
@@ -43,3 +43,5 @@ export default function styleAllPreTags(str, lang) {
 
   return strCopy
 }
+
+export default styleCodeBlocks
