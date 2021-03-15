@@ -46,6 +46,10 @@ const FormAddPage = () => {
 
         <input type="text" name="page_language" placeholder="Page Language" />
 
+        <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
+          Please Follow Alias for syntax highlighting
+        </a>
+
         <TrixEditor onChange={handleChangeEditor} />
 
         <select name="notebook_id" onChange={handleChangeOption}>
