@@ -21,8 +21,7 @@ class NotebookController < ApplicationController
 
   def notebook
     notebook = Notebook.find_by(slug: params[:slug])
-    pages = notebook.pages
-    render json: { notebook: notebook, pages: pages }
+    render json: { notebook: notebook, pages: notebook.pages }
   end
 
 end

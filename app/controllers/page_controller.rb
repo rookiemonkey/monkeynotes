@@ -8,6 +8,11 @@ class PageController < ApplicationController
     end
   end
 
+  def page
+    page = Page.find_by(slug: params[:slug])
+    render json: { notebook: page.notebook, page: page }
+  end
+
 
 
 

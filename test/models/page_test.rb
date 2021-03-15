@@ -18,6 +18,24 @@ class PageTest < ActiveSupport::TestCase
     assert_equal 1, @page.errors.full_messages.length
   end
 
+  test "should reject subject that is already existing" do
+    error_message = "#{@error_message} reject subject that is already existing"
+    new_page = Page.create(subject: 'Sample', 
+                          content: '<p>Sample</p>', 
+                          language: 'ruby', 
+                          notebook_id: notebooks(:one).id)
+    assert_not new_page.save, error_message
+  end
+  
+  test "should reject subject that is already existing case-sensitive" do
+    error_message = "#{@error_message} reject subject that is already existing case-sensitive"
+    new_page = Page.create(subject: 'SaMPle', 
+                          content: '<p>Sample</p>', 
+                          language: 'ruby', 
+                          notebook_id: notebooks(:one).id)
+    assert_not new_page.save, error_message
+  end
+
   test 'should reject subject w/ more than 50 chars' do
     error_message = "#{@error_message} reject subject w/ more than 50 chars"
     @page.subject = ('a'*51)
