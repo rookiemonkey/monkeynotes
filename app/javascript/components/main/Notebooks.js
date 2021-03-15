@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import Nav from '../shared/Nav'
 
 const Notebooks = () => {
-  const [notebooks, setNotebooks] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const raw = await fetch('/notebook/all')
+      const raw = await fetch('/notebook/all_details')
       const data = await raw.json()
-      setNotebooks(data)
+      setData(data)
     })()
   }, [])
 
@@ -17,15 +17,24 @@ const Notebooks = () => {
     <React.Fragment>
       <Nav />
 
-      <h2>{!notebooks && "Loading ...."}</h2>
+      <h2>{!data && "Loading ...."}</h2>
 
       <Link to="/add/page">Add Page</Link>
 
       <ul>
         {
-          notebooks.map(n => (
-            <li key={n.id}>
-              <h2><Link to={n.slug} >{n.subject}</Link></h2>
+          data.map(item => (
+            <li key={item.notebook.id}>
+              <h2><Link to={item.notebook.slug} >{item.notebook.subject}</Link></h2>
+
+              <ul>
+                {
+                  item.pages.map(page => (
+                    <li>{page}</li>
+                  ))
+                }
+              </ul>
+
             </li>
           ))
         }
