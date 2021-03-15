@@ -25,12 +25,14 @@ const Notebooks = () => {
         {
           data.map(item => (
             <li key={item.notebook.id}>
-              <h2><Link to={item.notebook.slug} >{item.notebook.subject}</Link></h2>
+              <h2><Link to={`notebook/${item.notebook.slug}`} >{item.notebook.subject}</Link></h2>
 
               <ul>
                 {
                   item.pages.map(page => (
-                    <li>{page}</li>
+                    <li>
+                      <Link to={`notebook/${item.notebook.slug}/${page.slug}`} >{page.subject}</Link>
+                    </li>
                   ))
                 }
               </ul>

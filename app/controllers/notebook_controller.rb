@@ -12,7 +12,14 @@ class NotebookController < ApplicationController
       item = Hash.new
       item[:notebook] = notebook
       item[:pages] = Array.new
-      notebook.pages.each { |page| item[:pages] << page.subject }
+
+      notebook.pages.each do |page|
+        content = Hash.new
+        content[:subject] = page.subject
+        content[:slug] = page.slug
+        item[:pages] << content
+      end
+
       response << item
     end
 
