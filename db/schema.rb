@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_055132) do
   create_table "pages", force: :cascade do |t|
     t.string "subject"
     t.string "language"
+    t.string "slug"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
