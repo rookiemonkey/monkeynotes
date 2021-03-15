@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import NotebookItem from './mini/NotebookItem'
 import Nav from '../shared/Nav'
 
 const Notebooks = () => {
@@ -23,22 +24,7 @@ const Notebooks = () => {
 
       <ul>
         {
-          data.map(item => (
-            <li key={item.notebook.id}>
-              <h2><Link to={`notebook/${item.notebook.slug}`} >{item.notebook.subject}</Link></h2>
-
-              <ul>
-                {
-                  item.pages.map(page => (
-                    <li>
-                      <Link to={`notebook/${item.notebook.slug}/${page.slug}`} >{page.subject}</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-
-            </li>
-          ))
+          data.map(item => <NotebookItem item={item} />)
         }
       </ul>
 

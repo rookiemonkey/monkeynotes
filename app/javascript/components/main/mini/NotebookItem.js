@@ -1,0 +1,23 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const NotebookItem = ({ item }) => {
+  return (
+    <li key={item.notebook.id}>
+      <h2><Link to={`notebook/${item.notebook.slug}`} >{item.notebook.subject}</Link></h2>
+
+      <ul>
+        {
+          item.pages.map(page => (
+            <li>
+              <Link to={`notebook/${item.notebook.slug}/${page.slug}`} >{page.subject}</Link>
+            </li>
+          ))
+        }
+      </ul>
+
+    </li>
+  )
+}
+
+export default NotebookItem

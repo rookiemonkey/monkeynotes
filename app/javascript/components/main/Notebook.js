@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
-import PageCard from './PageCard'
+import PageCard from './mini/PageCard'
 
 const Notebook = () => {
   const [state, setState] = useState({})

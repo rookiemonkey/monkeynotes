@@ -1,6 +1,7 @@
 import React from 'react'
 import { Markup } from 'interweave';
-import styleCodeBlocks from '../utilities/styleCodeBlocks';
+import { Link } from 'react-router-dom'
+import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
 const PageCard = ({ page }) => {
 
