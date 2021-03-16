@@ -9,23 +9,122 @@
 
 # NOTEBOOKS
 
-nb_1 = Notebook.create subject: 'Javascript'
-nb_2 = Notebook.create subject: 'PHP'
-nb_3 = Notebook.create subject: 'Express JS'
-nb_4 = Notebook.create subject: 'Passport JS'
-nb_5 = Notebook.create subject: 'NPM'
-nb_6 = Notebook.create subject: 'Laravel'
-nb_7 = Notebook.create subject: 'Ruby'
+javascript    = Notebook.create subject: 'Javascript'
+php           = Notebook.create subject: 'PHP'
+expressjs     = Notebook.create subject: 'Express JS'
+laravel       = Notebook.create subject: 'Laravel'
+ruby          = Notebook.create subject: 'Ruby'
 
-notebooks = [nb_1, nb_2, nb_3, nb_4, nb_5, nb_6, nb_7]
+
+
+
 
 
 # PAGES
 
-notebooks.each do |nb|
-  20.times do |n|
-    nb.pages << Page.create(subject: "#{nb.subject} #{n}", 
-                            content: "<p>Content for #{nb.subject} #{n}</p>",
+20.times do |i|
+  html = <<-HTML
+    <p>Content for #{javascript.subject} #{i}</p>
+    <pre>
+      // program that checks if the number is positive, negative or zero
+      // input from the user
+      const number = parseInt(prompt("Enter a number: "));
+
+      // check if number is greater than 0
+      if (number > 0) {
+          console.log("The number is positive");
+      }
+    </pre>
+  HTML
+
+  javascript.pages << Page.create(subject: "#{javascript.subject} #{i}", 
+                                  content: html,
+                                  language: 'javascript')
+end
+
+
+20.times do |i|
+  html = <<-HTML
+    <p>Content for #{php.subject} #{i}</p>
+    <pre>
+      <?php
+        echo "Hello!";
+        echo "Welcome to Developer News";
+        echo "Enjoy all of the ad-free articles"
+      ?>
+    </pre>
+  HTML
+
+  php.pages << Page.create(subject: "#{php.subject} #{i}", 
+                          content: html,
+                          language: 'php')
+end
+
+
+20.times do |i|
+  html = <<-HTML
+    <p>Content for #{expressjs.subject} #{i}</p>
+    <pre>
+      const express = require('express')
+      const app = express()
+      const port = 3000
+
+      app.get('/', (req, res) => {
+        res.send('Hello World!')
+      })
+
+      app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`)
+      })
+    </pre>
+  HTML
+
+  expressjs.pages << Page.create(subject: "#{expressjs.subject} #{i}", 
+                                content: html,
+                                language: 'javascript')
+end
+
+
+20.times do |i|
+  html = <<-HTML
+    <p>Content for #{laravel.subject} #{i}</p>
+    <pre>
+      class CreateStudentRecordsTable extends Migration
+      {
+          public function up()
+          {
+              Schema::create('student__records', function (Blueprint $table) {
+                  $table->increments('id');
+                  $table->timestamps();
+              });
+          }
+
+          public function down()
+          {
+              Schema::dropIfExists('student__records');
+          }
+      }
+    </pre>
+  HTML
+
+  laravel.pages << Page.create(subject: "#{laravel.subject} #{i}", 
+                                content: html,
+                                language: 'php')
+end
+
+
+20.times do |i|
+  html = <<-HTML
+    <p>Content for #{ruby.subject} #{i}</p>
+    <pre>
+      def sum_eq_n?(arr, n)
+        return true if arr.empty? && n == 0
+        arr.product(arr).reject { |a,b| a == b }.any? { |a,b| a + b == n }
+      end
+    </pre>
+  HTML
+
+  ruby.pages << Page.create(subject: "#{ruby.subject} #{i}", 
+                            content: html,
                             language: 'ruby')
-  end
 end
