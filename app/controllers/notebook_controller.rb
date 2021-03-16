@@ -8,12 +8,12 @@ class NotebookController < ApplicationController
   def all_with_pages
     response = Array.new
 
-    Notebook.all.each do |notebook|
+    Notebook.order(updated_at: :desc).each do |notebook|
       item = Hash.new
       item[:notebook] = notebook
       item[:pages] = Array.new
 
-      notebook.pages.each do |page|
+      notebook.pages.order(updated_at: :desc).each do |page|
         content = Hash.new
         content[:subject] = page.subject
         content[:slug] = page.slug
@@ -28,7 +28,7 @@ class NotebookController < ApplicationController
 
   def notebook
     notebook = Notebook.find_by(slug: params[:slug])
-    render json: { notebook: notebook, pages: notebook.pages }
+    render json: { notebook: notebook, pages: notebook.pages.order(updated_at: :desc) }
   end
 
 end
