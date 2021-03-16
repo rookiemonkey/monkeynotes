@@ -9,12 +9,15 @@ const PageCard = ({ page }) => {
   const html = styleCodeBlocks(content.body, language)
 
   return (
-    <React.Fragment>
+    <div>
+
       <h4>
         <Link to={`${window.location.pathname}/${page.slug}`} >{subject}</Link>
       </h4>
+
       <Markup content={html} />
-    </React.Fragment>
+
+    </div>
   )
 }
 

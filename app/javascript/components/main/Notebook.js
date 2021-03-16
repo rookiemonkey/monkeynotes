@@ -21,9 +21,15 @@ const Notebook = () => {
 
       <h2>{!state.notebook && "Loading ...."}</h2>
 
-      <h2>{state.notebook && state.notebook.subject}</h2>
+      <div className="uk-section uk-padding-remove-top">
+        <div className="uk-container">
+          <h2>{state.notebook && state.notebook.subject}</h2>
 
-      {state.pages && state.pages.map(page => <PageCard page={page} key={page.id} />)}
+          <div uk-grid="masonry: true" className="uk-child-width-1-3@m">
+            {state.pages && state.pages.map(page => <PageCard page={page} key={page.id} />)}
+          </div>
+        </div>
+      </div>
 
     </React.Fragment>
   )

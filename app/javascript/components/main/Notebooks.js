@@ -21,7 +21,7 @@ const Notebooks = () => {
 
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
-          <ul>
+          <ul className="uk-list">
             {
               data.map(item => <NotebookItem item={item} />)
             }
