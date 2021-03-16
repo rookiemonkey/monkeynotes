@@ -40,34 +40,65 @@ const FormAddPage = () => {
     <React.Fragment>
       <Nav />
 
-      <form onSubmit={handleOnSubmit}>
+      <div className="uk-section uk-padding-remove-top">
+        <div className="uk-container">
+          <form className="uk-form-stacked" onSubmit={handleOnSubmit}>
 
-        <input type="text" name="page_subject" placeholder="Page Subject" />
+            <div className="uk-margin">
+              <label className="uk-form-label">Page Subject</label>
+              <input type="text"
+                className="uk-input uk-form-controls"
+                name="page_subject"
+                required
+              />
+            </div>
 
-        <input type="text" name="page_language" placeholder="Page Language" />
+            <div className="uk-margin">
+              <label className="uk-form-label">Page Language</label>
+              <input type="text"
+                className="uk-input uk-form-controls"
+                name="page_language"
+                required
+              />
+              <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
+                Please Follow Alias for syntax highlighting
+              </a>
+            </div>
 
-        <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
-          Please Follow Alias for syntax highlighting
-        </a>
+            <div className="uk-margin">
+              <TrixEditor onChange={handleChangeEditor} />
+            </div>
 
-        <TrixEditor onChange={handleChangeEditor} />
+            <div className="uk-margin">
+              <label className="uk-form-label">Notebook</label>
+              <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption}>
+                <option value="new" default>New</option>
+                {
+                  notebooks && notebooks.map(n => (
+                    <option key={n.id} value={n.id}>{n.subject}</option>
+                  ))
+                }
+              </select>
+            </div>
 
-        <select name="notebook_id" onChange={handleChangeOption}>
-          <option value="new" default>New</option>
-          {
-            notebooks && notebooks.map(n => (
-              <option key={n.id} value={n.id}>{n.subject}</option>
-            ))
-          }
-        </select>
 
-        {
-          state.isNewNotebook && <input type="text" name="notebook_subject" placeholder="Notebook Subject" />
-        }
+            {
+              state.isNewNotebook && (<div className="uk-margin">
+                <label className="uk-form-label">Notebook Subject</label>
+                <input type="text"
+                  className="uk-input uk-form-controls"
+                  name="notebook_subject"
+                  required />
+              </div>)
+            }
 
-        <button type="submit">Submit</button>
+            <div className="uk-margin">
+              <button type="submit" className="uk-button uk-button-default">Submit</button>
+            </div>
 
-      </form>
+          </form>
+        </div>
+      </div>
 
     </React.Fragment>
   )
