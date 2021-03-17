@@ -3,18 +3,9 @@ class NotebookController < ApplicationController
   def all
     response = Array.new
 
-    Notebook.order(updated_at: :desc).each do |notebook|
-      item = Hash.new
-      item[:notebook] = notebook
-      item[:pages] = Array.new
-
-      notebook.pages.order(updated_at: :desc).each do |page|
-        content = Hash.new
-        content[:subject] = page.subject
-        content[:slug] = page.slug
-        item[:pages] << content
-      end
-
+    Category.order(updated_at: :desc).each do |category|
+      item = JSON.parse(category.to_json)
+      item[:notebooks] = category.notebooks.order(updated_at: :desc)
       response << item
     end
 
