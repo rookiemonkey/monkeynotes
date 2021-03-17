@@ -7,13 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+# CATEGORIES
+vanilla = Category.create(subject: 'Vanilla')
+frameworks = Category.create(subject: 'Frameworks')
+
+
+
+
+
+
 # NOTEBOOKS
 
-javascript    = Notebook.create subject: 'Javascript'
-php           = Notebook.create subject: 'PHP'
-expressjs     = Notebook.create subject: 'Express JS'
-laravel       = Notebook.create subject: 'Laravel'
-ruby          = Notebook.create subject: 'Ruby'
+javascript    = Notebook.create subject: 'Javascript', category: vanilla
+php           = Notebook.create subject: 'PHP', category: vanilla
+expressjs     = Notebook.create subject: 'Express JS', category: frameworks
+laravel       = Notebook.create subject: 'Laravel', category: frameworks
+ruby          = Notebook.create subject: 'Ruby', category: vanilla
 
 
 

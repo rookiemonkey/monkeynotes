@@ -1,6 +1,7 @@
 class Notebook < ApplicationRecord
 
   has_many :pages, dependent: :destroy
+  belongs_to :category
   
   before_save :slugify
 
