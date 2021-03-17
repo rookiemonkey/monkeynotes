@@ -4,14 +4,14 @@ import Nav from '../shared/Nav'
 import parseForm from '../utilities/parseForm';
 
 const FormAddPage = () => {
-  const [state, setState] = useState({ isNewNotebook: true })
-  const [notebooks, setNotebooks] = useState([]);
+  const [state, setState] = useState({ isNewNotebook: true, isNewCategory: true })
+  const [dataFromDb, setDataFromDb] = useState({});
 
   useEffect(() => {
     (async () => {
-      const raw = await fetch('/notebook/all')
-      const data = await raw.json()
-      setNotebooks(data)
+      const raw = await fetch('/form')
+      const res = await raw.json()
+      setDataFromDb(res)
     })()
   }, [])
 
@@ -19,8 +19,8 @@ const FormAddPage = () => {
 
   const handleChangeOption = useCallback(({ target }) =>
     target.value == 'new'
-      ? setState({ ...state, isNewNotebook: true })
-      : setState({ ...state, isNewNotebook: false })
+      ? setState({ ...state, [target.dataset.state]: true })
+      : setState({ ...state, [target.dataset.state]: false })
   )
 
   const handleOnSubmit = useCallback(async e => {
@@ -42,9 +42,9 @@ const FormAddPage = () => {
 
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
-          <form className="uk-form-stacked" onSubmit={handleOnSubmit}>
+          <form className="uk-grid uk-grid-small" onSubmit={handleOnSubmit}>
 
-            <div className="uk-margin">
+            <div className="uk-margin-bottom uk-width-1-2@l">
               <label className="uk-form-label">Page Subject</label>
               <input type="text"
                 className="uk-input uk-form-controls"
@@ -53,28 +53,31 @@ const FormAddPage = () => {
               />
             </div>
 
-            <div className="uk-margin">
+            <div className="uk-margin-bottom uk-width-1-2@l">
               <label className="uk-form-label">Page Language</label>
+              <span className="uk-form-helper">
+                <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
+                  Please Follow Alias for syntax highlighting
+                </a>
+              </span>
               <input type="text"
                 className="uk-input uk-form-controls"
                 name="page_language"
                 required
               />
-              <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
-                Please Follow Alias for syntax highlighting
-              </a>
             </div>
 
-            <div className="uk-margin">
+            <div className="uk-margin-bottom uk-width-4-4@l">
               <TrixEditor onChange={handleChangeEditor} />
             </div>
 
-            <div className="uk-margin">
+            <div className="uk-margin-bottom uk-width-1-2@l">
               <label className="uk-form-label">Notebook</label>
-              <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption}>
+              <span className="uk-form-helper">What notebook does this new page relates to?</span>
+              <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption} data-state="isNewNotebook">
                 <option value="new" default>New</option>
                 {
-                  notebooks && notebooks.map(n => (
+                  dataFromDb.notebooks && dataFromDb.notebooks.map(n => (
                     <option key={n.id} value={n.id}>{n.subject}</option>
                   ))
                 }
@@ -83,16 +86,47 @@ const FormAddPage = () => {
 
 
             {
-              state.isNewNotebook && (<div className="uk-margin">
-                <label className="uk-form-label">Notebook Subject</label>
-                <input type="text"
-                  className="uk-input uk-form-controls"
-                  name="notebook_subject"
-                  required />
-              </div>)
+              state.isNewNotebook && (
+                <div className="uk-margin-bottom uk-width-1-2@l">
+                  <label className="uk-form-label">Notebook Subject</label>
+                  <input type="text"
+                    className="uk-input uk-form-controls"
+                    name="notebook_subject"
+                    required />
+                </div>
+              )
             }
 
-            <div className="uk-margin">
+            {
+              state.isNewNotebook && (
+                <div className="uk-margin-bottom uk-width-1-2@l">
+                  <label className="uk-form-label">Category</label>
+                  <span className="uk-form-helper">Where does this new notebook belong?</span>
+                  <select className="uk-select uk-form-controls" name="category_id" onChange={handleChangeOption} data-state="isNewCategory">
+                    <option value="new">New</option>
+                    {
+                      dataFromDb.categories && dataFromDb.categories.map(c => (
+                        <option key={c.id} value={c.id}>{c.subject}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+              )
+            }
+
+            {
+              (state.isNewNotebook && state.isNewCategory) && (
+                <div className="uk-margin-bottom uk-width-1-2@l">
+                  <label className="uk-form-label">Category Subject</label>
+                  <input type="text"
+                    className="uk-input uk-form-controls"
+                    name="category_subject"
+                    required />
+                </div>
+              )
+            }
+
+            <div className="uk-width-4-4@l">
               <button type="submit" className="uk-button uk-button-default">Submit</button>
             </div>
 
