@@ -7,7 +7,7 @@ const Notebooks = () => {
 
   useEffect(() => {
     (async () => {
-      const raw = await fetch('/notebook/all_details')
+      const raw = await fetch('/notebook/all')
       const data = await raw.json()
       setData(data)
     })()

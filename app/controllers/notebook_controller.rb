@@ -1,11 +1,6 @@
 class NotebookController < ApplicationController
 
   def all
-    render json: Notebook.all
-  end
-
-
-  def all_with_pages
     response = Array.new
 
     Notebook.order(updated_at: :desc).each do |notebook|
