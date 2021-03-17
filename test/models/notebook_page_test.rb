@@ -4,6 +4,9 @@ class NotebookPageTest < ActiveSupport::TestCase
 
   def setup
     @notebook = Notebook.create(subject: "Ruby")
+    categories(:one).notebooks << @notebook
+  
+    @notebook.save
     @notebook.pages.create(subject: 'integers', content: '<p>test from setup!</p>', language: 'ruby')
   end
 

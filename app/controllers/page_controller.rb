@@ -2,7 +2,13 @@ class PageController < ApplicationController
 
   def create
     if params[:notebook_id] == 'new' and params[:notebook_subject].present?
-      create_page_for Notebook.create(subject: params[:notebook_subject]) 
+      if params[:category_id] == 'new'
+        category = Category.create(subject: params[:category_subject])
+        create_page_for Notebook.create(subject: params[:notebook_subject], category: category) 
+      else
+        category = Category.find(params[:category_id])
+        create_page_for Notebook.create(subject: params[:notebook_subject], category: category) 
+      end
     else
       create_page_for Notebook.find(params[:notebook_id].to_i)
     end
