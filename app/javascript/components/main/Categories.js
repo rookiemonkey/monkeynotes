@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import NotebookItem from './mini/NotebookItem'
+import CategoryItem from './mini/CategoryItem'
 import Nav from '../shared/Nav'
 
-const Notebooks = () => {
+const Categories = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Notebooks = () => {
         <div className="uk-container">
           <ul className="uk-list">
             {
-              data.map(item => <NotebookItem item={item} />)
+              data.map(category => <CategoryItem category={category} />)
             }
           </ul>
         </div>
@@ -34,4 +34,4 @@ const Notebooks = () => {
   )
 }
 
-export default Notebooks
+export default Categories
