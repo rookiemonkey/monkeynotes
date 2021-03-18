@@ -7,7 +7,7 @@ const PageItem = ({ page }) => {
 
   const { language, content, subject } = page
   const html = styleCodeBlocks(content.body, language)
-  console.log(html)
+
   return (
     <div>
 
@@ -15,7 +15,7 @@ const PageItem = ({ page }) => {
         <Link className="page-link" to={`${window.location.pathname}/${page.slug}`} >{subject}</Link>
       </h4>
 
-      <Markup content={html} />
+      <Markup content={html} allowAttributes="true" />
 
     </div>
   )
