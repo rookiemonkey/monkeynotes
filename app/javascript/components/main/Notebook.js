@@ -23,7 +23,7 @@ const Notebook = () => {
 
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
-          <h2>{state.notebook && state.notebook.subject}</h2>
+          <h2 className="notebook-header">{state.notebook && state.notebook.subject}</h2>
 
           <div uk-grid="masonry: true" className="uk-child-width-1-3@m">
             {state.pages && state.pages.map(page => <PageItem page={page} key={page.id} />)}

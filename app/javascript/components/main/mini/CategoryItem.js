@@ -6,7 +6,7 @@ const CategoryItem = ({ category }) => {
   return (
     <li className="uk-margin-medium-bottom" key={category.id}>
 
-      <h2> {category.subject} </h2>
+      <h2 className="category-header"> {category.subject} </h2>
 
       <ul className="uk-list uk-list-hyphen" id="list-notebook-pages">
         {
