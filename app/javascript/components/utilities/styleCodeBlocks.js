@@ -5,6 +5,10 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { decode } from 'html-entities';
 
 const styleCodeBlocks = (str, lang) => {
+
+  /**
+   * STYLE CODE BLOCKS
+   */
   let strCopy = '' + str
   let openingTagPos = strCopy.indexOf('<pre>');
 
@@ -41,8 +45,26 @@ const styleCodeBlocks = (str, lang) => {
 
   }
 
+
+  /**
+   * SET TARGET=_blank FOR LINKS
+   */
+  let anchorTagPos = strCopy.indexOf('<a href=')
+
+  while (anchorTagPos !== -1) {
+    strCopy = `
+      ${strCopy.slice(0, anchorTagPos + 2)}
+      target="_blank" rel="noreferrer noopener"
+      ${strCopy.slice(anchorTagPos + 2, strCopy.length)}
+    `
+
+    anchorTagPos = strCopy.indexOf('<a href=')
+  }
+
+
   // give class name to the parent element of the content
   strCopy = strCopy.replace('<div>', '<div class="page-content">')
+
 
   return strCopy
 }
