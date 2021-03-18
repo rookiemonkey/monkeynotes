@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
-import PageCard from './mini/PageCard'
+import PageItem from './mini/PageItem'
 
 const Notebook = () => {
   const [state, setState] = useState({})
@@ -26,7 +26,7 @@ const Notebook = () => {
           <h2>{state.notebook && state.notebook.subject}</h2>
 
           <div uk-grid="masonry: true" className="uk-child-width-1-3@m">
-            {state.pages && state.pages.map(page => <PageCard page={page} key={page.id} />)}
+            {state.pages && state.pages.map(page => <PageItem page={page} key={page.id} />)}
           </div>
         </div>
       </div>

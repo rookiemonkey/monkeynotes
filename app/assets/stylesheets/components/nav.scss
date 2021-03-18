@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 
 nav {
   height: 75px;
@@ -18,4 +20,9 @@ nav {
 
 .nav-buttons {
   background-color: transparent;
+}
+
+.uk-navbar-item:hover {
+  color: $gray-darker !important;
+  text-decoration: none;
 }

@@ -1,17 +1,22 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 const Nav = () => {
   const history = useHistory()
+  const location = useLocation()
 
   return (
     <nav className="uk-navbar-container uk-margin uk-navbar-transparent" uk-navbar="true">
 
-      <div className="uk-navbar-left">
-        <button className="uk-navbar-item uk-button nav-buttons" onClick={() => history.goBack()}>
-          <span uk-icon="chevron-left" style={{ marginRight: '2px' }}></span> Back
-        </button>
-      </div>
+      {
+        location.pathname != '/' && (
+          <div className="uk-navbar-left">
+            <button className="uk-navbar-item uk-button nav-buttons" onClick={() => history.goBack()}>
+              <span uk-icon="chevron-left" style={{ marginRight: '2px' }}></span> Back
+            </button>
+          </div>
+        )
+      }
 
       <div className="uk-navbar-center">
         <Link className="uk-navbar-item uk-logo nav-logo" to="/">

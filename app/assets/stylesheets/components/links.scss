@@ -1,0 +1,14 @@
+@import '../variables.scss';
+
+// global styles
+#list-notebook-pages > li > a,
+.page-link {
+  color: $gray-dark !important;
+  transition: all 250ms ease-in-out;
+}
+
+#list-notebook-pages > li > a:hover,
+.page-link:hover {
+  color: $gray-darker !important;
+  text-decoration: none;
+}
