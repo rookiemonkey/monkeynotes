@@ -1,0 +1,20 @@
+@import '../variables.scss';
+
+.page-content > a {
+  color: $external-link-light;
+  transition: all 250ms ease-in-out;
+}
+
+.page-content > a:hover {
+  color: $external-link-dark;
+  text-decoration: none;
+}
+
+.page-content > a:before {
+  content: "\f0c1";
+  font-family: "Font Awesome 5 Free";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  font-weight:900;
+}

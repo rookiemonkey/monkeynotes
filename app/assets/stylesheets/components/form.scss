@@ -1,7 +1,9 @@
+@import '../variables.scss';
+
 .uk-form-helper,
 .uk-form-helper>a {
   font-size: 11.5px;
-  color: #666 !important;
+  color: $font-color-gray-light !important;
   margin-left: 5px;
 }
 

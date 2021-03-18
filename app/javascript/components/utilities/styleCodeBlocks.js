@@ -41,6 +41,9 @@ const styleCodeBlocks = (str, lang) => {
 
   }
 
+  // give class name to the parent element of the content
+  strCopy = strCopy.replace('<div>', '<div class="page-content">')
+
   return strCopy
 }
 

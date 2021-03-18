@@ -20,7 +20,7 @@ const Categories = () => {
       <h2>{!data && "Loading ...."}</h2>
 
       <div className="uk-section uk-padding-remove-top">
-        <div className="uk-container">
+        <div className="uk-container uk-width-1-2@l">
           <ul className="uk-list">
             {
               data.map(category => <CategoryItem category={category} />)
