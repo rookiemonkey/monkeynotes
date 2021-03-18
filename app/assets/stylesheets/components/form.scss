@@ -3,10 +3,24 @@
 .uk-form-helper,
 .uk-form-helper>a {
   font-size: 11.5px;
-  color: $font-color-gray-light !important;
+  color: $gray-dark !important;
   margin-left: 5px;
 }
 
 trix-editor {
   height: 250px;
+  background-color: #ffff;
+  border: 1px solid #e5e5e5;
+}
+
+trix-editor pre {
+  background-color: #807e7e;
+  color: white;
+}
+
+trix-toolbar .trix-button-group,
+trix-toolbar .trix-button-group .trix-button {
+  border: none;
+  border-color: transparent !important;
+  border-radius: 0px;
 }

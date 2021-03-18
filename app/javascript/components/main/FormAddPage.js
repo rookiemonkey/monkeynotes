@@ -127,7 +127,10 @@ const FormAddPage = () => {
             }
 
             <div className="uk-width-4-4@l">
-              <button type="submit" className="uk-button uk-button-default">Submit</button>
+              <button type="submit" className="uk-button uk-button-default">
+                <span uk-icon="check" style={{ marginRight: '5px' }}></span>
+                Submit
+              </button>
             </div>
 
           </form>
