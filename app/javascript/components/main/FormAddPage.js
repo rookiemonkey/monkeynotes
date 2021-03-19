@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { TrixEditor } from "react-trix";
 import Nav from '../shared/Nav'
+import Loader from '../shared/Loader'
 import parseForm from '../utilities/parseForm';
 
 const FormAddPage = () => {
