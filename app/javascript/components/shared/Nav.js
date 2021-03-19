@@ -20,7 +20,7 @@ const Nav = () => {
 
       <div className="uk-navbar-center">
         <Link className="uk-navbar-item uk-logo nav-logo" to="/">
-          monkeynotes
+          MONKEYNOTES
         </Link>
       </div>
 

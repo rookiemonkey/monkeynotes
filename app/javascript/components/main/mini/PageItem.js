@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
 const PageItem = ({ page }) => {
-
   const { language, content, subject } = page
   const html = styleCodeBlocks(content.body, language)
 
