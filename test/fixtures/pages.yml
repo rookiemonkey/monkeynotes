@@ -16,3 +16,15 @@ two:
   content: "<p>all about rails</p>"
   id: 2
   notebook_id: 2
+
+three:
+  subject: "Rails Test 2"
+  content: "<p>ito wala lang</p>"
+  id: 3
+  notebook_id: 2
+
+four:
+  subject: "Rails Test 2"
+  content: "<p>Vegeta</p>"
+  id: 4
+  notebook_id: 1
