@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
+import Loader from '../shared/Loader'
 import PageItem from './mini/PageItem'
 
 const Notebook = () => {
@@ -19,15 +20,19 @@ const Notebook = () => {
     <React.Fragment>
       <Nav />
 
-      <h2>{!state.notebook && "Loading ...."}</h2>
-
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
-          <h2 className="notebook-header">{state.notebook && state.notebook.subject}</h2>
+
+          {!state.notebook && <Loader />}
+
+          <h2 className="notebook-header">
+            {state.notebook && state.notebook.subject}
+          </h2>
 
           <div uk-grid="masonry: true" className="uk-child-width-1-3@m">
             {state.pages && state.pages.map(page => <PageItem page={page} key={page.id} />)}
           </div>
+
         </div>
       </div>
 
