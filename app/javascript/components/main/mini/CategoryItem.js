@@ -1,12 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DayJS from 'react-dayjs'
 
 const CategoryItem = ({ category }) => {
 
   return (
     <li className="category-item uk-margin-medium-bottom uk-padding-small" key={category.id}>
 
-      <h2 className="category-header"> {category.subject} </h2>
+      <div className="category-header-container uk-margin-bottom">
+        <h2 className="category-header">
+          {category.subject}
+        </h2>
+        <span className="category-subheader">
+          Updated as of <DayJS format="MM-DD-YYYY">{category.updated_at}</DayJS>
+        </span>
+      </div>
 
       <ul className="uk-list uk-list-hyphen" id="list-notebook-pages">
         {

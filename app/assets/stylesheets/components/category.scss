@@ -5,6 +5,22 @@
   box-shadow: $box-shadow;
 }
 
+.category-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .category-header {
   font-size: 1rem !important;
+  margin: 0px !important;
+}
+
+.category-subheader {
+  font-size: 0.75rem !important;
+}
+
+.category-subheader time {
+  font-weight: 600;
+  color: $red;
 }

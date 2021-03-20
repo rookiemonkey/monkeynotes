@@ -3,5 +3,35 @@
 .notebook-header {
   font-size: 1.5rem !important;
   font-weight: 800;
+  color: $red !important;
+}
+.page-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header-container h4 {
+  margin: 0px;
+}
+
+.page-header {
+  font-size: 1rem !important;
+  margin: 0px !important;
   color: $red;
+  transition: color 250ms ease-in-out;
+}
+
+.page-header:hover {
+  text-decoration: none;
+  color: #f48989 !important;
+}
+
+.page-subheader {
+  font-size: 0.75rem !important;
+}
+
+.page-subheader time {
+  font-weight: 600;
+  color: $red !important;
 }
