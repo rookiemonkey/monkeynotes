@@ -1,3 +1,9 @@
+@import '../variables.scss';
+
+.category-item {
+  background-color: #ffff;
+  box-shadow: $box-shadow;
+}
 
 .category-header {
   font-size: 1rem !important;

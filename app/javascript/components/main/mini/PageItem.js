@@ -8,7 +8,7 @@ const PageItem = ({ page }) => {
   const html = styleCodeBlocks(content.body, language)
 
   return (
-    <div>
+    <div className="page-item uk-padding-small">
 
       <h4>
         <Link className="page-link" to={`${window.location.pathname}/${page.slug}`} >{subject}</Link>

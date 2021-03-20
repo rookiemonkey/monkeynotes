@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const CategoryItem = ({ category }) => {
 
   return (
-    <li className="uk-margin-medium-bottom" key={category.id}>
+    <li className="category-item uk-margin-medium-bottom uk-padding-small" key={category.id}>
 
       <h2 className="category-header"> {category.subject} </h2>
 
@@ -17,8 +17,6 @@ const CategoryItem = ({ category }) => {
           ))
         }
       </ul>
-
-      <hr className="uk-divider-icon" />
 
     </li>
   )

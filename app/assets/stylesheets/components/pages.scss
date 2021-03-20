@@ -1,3 +1,4 @@
+@import '../variables.scss';
 
 #list-notebook-pages {
   display: grid;
@@ -6,4 +7,13 @@
 
 #list-notebook-pages>:first-child {
   margin-top: 10px;
+}
+
+.pages-parent {
+  margin: 0px !important;
+}
+
+.page-item {
+  box-shadow: $box-shadow;
+  margin: 0px 10px;
 }

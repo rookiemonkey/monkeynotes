@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import PageItem from './mini/PageItem'
@@ -45,7 +45,16 @@ const Notebook = () => {
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
 
-          <form onSubmit={handleSearch} className="uk-search uk-search-navbar uk-width-1-1@l">
+          <ul class="uk-breadcrumb">
+            <li>
+              <Link to="/">Notebooks</Link>
+            </li>
+            <li>
+              <span className="notebook-header" >{state.notebook && state.notebook.subject}</span>
+            </li>
+          </ul>
+
+          <form onSubmit={handleSearch} className="uk-search uk-search-navbar uk-margin-bottom uk-width-1-1@l">
             <div className="uk-flex uk-flex-middle">
               <span uk-icon="search" style={{ marginRight: '10px' }}></span>
               <input onChange={handleChange} ref={input} className="uk-search-input" name="search" type="search" placeholder="What are you looking for in this notebook?" autoComplete='off' />
@@ -54,10 +63,6 @@ const Notebook = () => {
 
           {(!state.notebook || search.hasStarted) && <Loader />}
 
-          <h2 className="notebook-header">
-            {state.notebook && state.notebook.subject}
-          </h2>
-
           {
             search.isSearching &&
             !search.data.count && (
@@ -65,7 +70,7 @@ const Notebook = () => {
             )
           }
 
-          <div uk-grid="masonry: true" className="uk-child-width-1-3@m">
+          <div uk-grid="masonry: true" className="pages-parent uk-flex-center">
             {
               !search.isSearching &&
               state.pages &&
@@ -77,10 +82,8 @@ const Notebook = () => {
               search.data.pages.map(page => <PageItem page={page} key={page.id} />)
             }
           </div>
-
         </div>
       </div>
-
     </React.Fragment>
   )
 }

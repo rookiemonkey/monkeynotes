@@ -28,7 +28,7 @@ const styleCodeBlocks = (str, lang) => {
       <SyntaxHighlighter
         language={lang}
         style={docco}
-        showLineNumbers={true}>
+        showLineNumbers={false}>
         {code}
       </SyntaxHighlighter>
     )
