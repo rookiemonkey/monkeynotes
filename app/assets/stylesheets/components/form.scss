@@ -24,3 +24,7 @@ trix-toolbar .trix-button-group .trix-button {
   border-color: transparent !important;
   border-radius: 0px;
 }
+
+trix-toolbar .trix-button.trix-active {
+  background-color: #ffff;
+}

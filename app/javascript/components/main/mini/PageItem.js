@@ -20,7 +20,9 @@ const PageItem = ({ page }) => {
         </span>
       </div>
 
-      <Markup content={html} allowAttributes="true" />
+      <div class="page-content-container">
+        <Markup content={html} allowAttributes="true" noWrap="true" />
+      </div>
 
     </div>
   )

@@ -1,5 +1,10 @@
 @import '../variables.scss';
 
+.page-content-container > p {
+  margin: 0px !important;
+  line-height: 1.25 !important;
+}
+
 .page-content > a {
   color: $external-link-light;
   transition: all 250ms ease-in-out;
@@ -17,4 +22,12 @@
   padding-right: 3px;
   vertical-align: middle;
   font-weight:900;
+}
+
+.page-content-container > pre {
+  border: 0px !important;
+  padding: 5px 0px !important;
+  margin: 5px 0px !important;
+  background-color: lighten($color: $light, $amount: 2) !important;
+  line-height: 1.25 !important;
 }
