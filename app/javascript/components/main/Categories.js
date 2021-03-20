@@ -33,7 +33,7 @@ const Categories = () => {
   })
 
   const handleChange = useCallback(({ target }) => {
-    if (target.value == '') setSearch({ ...state, isSearching: false })
+    if (target.value == '') setSearch({ ...search, isSearching: false })
   })
 
   return (
@@ -46,7 +46,7 @@ const Categories = () => {
           <form onSubmit={handleSearch} className="uk-search uk-search-navbar uk-width-1-1@l">
             <div className="uk-flex uk-flex-middle">
               <span uk-icon="search" style={{ marginRight: '10px' }}></span>
-              <input onChange={handleChange} ref={input} className="uk-search-input" name="search" type="search" placeholder="What are you looking for?" />
+              <input onChange={handleChange} ref={input} className="uk-search-input" name="search" type="search" placeholder="What are you looking for?" autoComplete='off' />
             </div>
           </form>
 
