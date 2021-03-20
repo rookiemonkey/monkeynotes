@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 import DayJS from 'react-dayjs'
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
-const PageItem = ({ page }) => {
+const PageItem = ({ page, full }) => {
   const { language, content, subject, updated_at } = page
   const html = styleCodeBlocks(content.body, language)
 
   return (
-    <div className="page-item uk-padding-small">
+    <div className={`page-item uk-padding-small ${full ? 'page-item-full' : ''}`}>
 
       <div className="page-header-container uk-margin-bottom">
         <h4>

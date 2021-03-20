@@ -63,7 +63,7 @@ const Categories = () => {
           {search.isSearching && (
             <ul className="uk-list">
               {
-                search.data.pages.map(page => <PageItem page={page} />)
+                search.data.pages.map(page => <PageItem page={page} full={true} />)
               }
             </ul>
           )}
