@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
+import NoResult from '../shared/NoResults'
 import PageItem from './mini/PageItem'
 
 const Notebook = () => {
@@ -64,10 +65,7 @@ const Notebook = () => {
           {(!state.notebook || search.hasStarted) && <Loader />}
 
           {
-            search.isSearching &&
-            !search.data.count && (
-              <h3 className="uk-text-center empty-header">NO MATCHING RESULTS</h3>
-            )
+            search.isSearching && !search.data.count && <NoResult query={input.current.value} />
           }
 
           <div uk-grid="masonry: true" className="pages-parent uk-flex-center">
@@ -81,6 +79,7 @@ const Notebook = () => {
               search.isSearching &&
               search.data.pages.map(page => <PageItem page={page} key={page.id} />)
             }
+
           </div>
         </div>
       </div>

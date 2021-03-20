@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
+import NoResults from '../shared/NoResults'
 import PageItem from './mini/PageItem'
 import CategoryItem from './mini/CategoryItem'
 
@@ -68,9 +69,7 @@ const Categories = () => {
             </ul>
           )}
 
-          {(search.isSearching && !search.data.pages.length) && (
-            <h3 className="uk-text-center empty-header">NO MATCHING RESULTS</h3>
-          )}
+          {(search.isSearching && !search.data.pages.length) && <NoResults query={input.current.value} />}
 
         </div>
       </div >
