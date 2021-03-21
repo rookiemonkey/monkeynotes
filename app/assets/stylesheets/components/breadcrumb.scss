@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+.uk-breadcrumb li a {
+  transition: color 250ms ease-in-out;
+}
+
+.uk-breadcrumb li:last-child > a,
+.uk-breadcrumb li:last-child > span {
+  transition: none !important;
+}
+
+.uk-breadcrumb li:last-child > a:hover,
+.uk-breadcrumb li:last-child > span:hover {
+  color: $red !important;
+}
+
+.current {
+  font-size: 1.25rem !important;
+  font-weight: 800;
+  color: $red !important;
+}

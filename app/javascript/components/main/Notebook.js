@@ -52,7 +52,7 @@ const Notebook = props => {
               <Link to="/">Notebooks</Link>
             </li>
             <li>
-              <span className="notebook-header" >{notebook.subject}</span>
+              <span className="current" >{notebook.subject}</span>
             </li>
           </ul>
 

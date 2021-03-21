@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { Markup } from 'interweave'
+import DayJS from 'react-dayjs'
 import Nav from '../shared/Nav'
+import Loader from '../shared/Loader'
+import styleCodeBlocks from '../utilities/styleCodeBlocks'
 
 const Page = props => {
   const { notebook, page } = props.location.state
-  const [state, setState] = useState({})
+  const [state, setState] = useState({ isLoaded: false })
   const { pageSlug } = useParams()
 
   useEffect(() => {
     (async () => {
       const raw = await fetch(`/pages/${pageSlug}`)
       const data = await raw.json()
-      setState(data)
+      setState({ isLoaded: true, ...data })
     })()
   }, [])
 
@@ -22,7 +26,7 @@ const Page = props => {
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
 
-          <ul className="uk-breadcrumb">
+          <ul className="uk-breadcrumb uk-margin-bottom">
             <li>
               <Link to="/">
                 Notebooks
@@ -36,11 +40,37 @@ const Page = props => {
               >{notebook.subject}</Link>
             </li>
             <li>
-              <span className="page-header">
+              <span className="current">
                 {page.subject}
               </span>
             </li>
           </ul>
+
+          {
+            !state.isLoaded && <Loader />
+          }
+
+          {
+            state.page && (
+              <div className="page-header-container uk-margin-bottom">
+                <h4></h4>
+                <span className="page-subheader">
+                  Updated as of <DayJS format="MM-DD-YYYY">{state.page.updated_at}</DayJS>
+                </span>
+              </div>
+            )
+          }
+
+          {
+            state.page && (
+              <div className="page-content-container">
+                <Markup
+                  content={styleCodeBlocks(state.page.content.body, state.page.language)}
+                  allowAttributes="true"
+                  noWrap="true" />
+              </div>
+            )
+          }
 
         </div>
       </div>
