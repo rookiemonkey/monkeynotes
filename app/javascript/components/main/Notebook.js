@@ -5,7 +5,8 @@ import Loader from '../shared/Loader'
 import NoResult from '../shared/NoResults'
 import PageItem from './mini/PageItem'
 
-const Notebook = () => {
+const Notebook = props => {
+  const { notebook } = props.location.state
   const [state, setState] = useState({})
   const [search, setSearch] = useState({ isSearching: false, hasStarted: false, id: null, data: {} })
   const { slug } = useParams()
@@ -46,12 +47,12 @@ const Notebook = () => {
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
 
-          <ul class="uk-breadcrumb">
+          <ul className="uk-breadcrumb">
             <li>
               <Link to="/">Notebooks</Link>
             </li>
             <li>
-              <span className="notebook-header" >{state.notebook && state.notebook.subject}</span>
+              <span className="notebook-header" >{notebook.subject}</span>
             </li>
           </ul>
 
@@ -72,12 +73,12 @@ const Notebook = () => {
             {
               !search.isSearching &&
               state.pages &&
-              state.pages.map(page => <PageItem page={page} key={page.id} />)
+              state.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} />)
             }
 
             {
               search.isSearching &&
-              search.data.pages.map(page => <PageItem page={page} key={page.id} />)
+              search.data.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} />)
             }
 
           </div>

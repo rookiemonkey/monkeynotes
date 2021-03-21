@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import DayJS from 'react-dayjs'
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
-const PageItem = ({ page, full }) => {
+const PageItem = ({ page, full, notebook }) => {
   const { language, content, subject, updated_at } = page
   const html = styleCodeBlocks(content.body, language)
 
@@ -13,14 +13,19 @@ const PageItem = ({ page, full }) => {
 
       <div className="page-header-container uk-margin-bottom">
         <h4>
-          <Link className="page-header" to={`${window.location.pathname}/${page.slug}`} >{subject}</Link>
+          <Link className="page-header"
+            to={{
+              pathname: `${window.location.pathname}/${page.slug}`,
+              state: { notebook: { ...notebook }, page: { subject } }
+            }}
+          >{subject}</Link>
         </h4>
         <span className="page-subheader">
           Updated as of <DayJS format="MM-DD-YYYY">{updated_at}</DayJS>
         </span>
       </div>
 
-      <div class="page-content-container">
+      <div className="page-content-container">
         <Markup content={html} allowAttributes="true" noWrap="true" />
       </div>
 

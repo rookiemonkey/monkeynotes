@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
 
-const Page = () => {
+const Page = props => {
+  const { notebook, page } = props.location.state
   const [state, setState] = useState({})
   const { pageSlug } = useParams()
 
@@ -21,26 +22,24 @@ const Page = () => {
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
 
-          <ul class="uk-breadcrumb">
+          <ul className="uk-breadcrumb">
             <li>
               <Link to="/">
                 Notebooks
               </Link>
             </li>
-            {state.notebook && (
-              <li>
-                <Link to={`/notebook/${state.notebook.slug}`}>
-                  {state.notebook.subject}
-                </Link>
-              </li>
-            )}
-            {state.page && (
-              <li>
-                <span className="page-header">
-                  {state.page.subject}
-                </span>
-              </li>
-            )}
+            <li>
+              <Link to={{
+                pathname: `/notebook/${notebook.slug}`,
+                state: { notebook: { ...notebook } }
+              }}
+              >{notebook.subject}</Link>
+            </li>
+            <li>
+              <span className="page-header">
+                {page.subject}
+              </span>
+            </li>
           </ul>
 
         </div>

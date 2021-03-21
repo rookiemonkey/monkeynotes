@@ -20,7 +20,11 @@ const CategoryItem = ({ category }) => {
         {
           category.notebooks.map(notebook => (
             <li key={notebook.slug}>
-              <Link to={`notebook/${notebook.slug}`} >{notebook.subject}</Link>
+              <Link to={{
+                pathname: `notebook/${notebook.slug}`,
+                state: { notebook: { subject: notebook.subject, slug: notebook.slug } }
+              }}
+              >{notebook.subject}</Link>
             </li>
           ))
         }
