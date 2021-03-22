@@ -55,6 +55,9 @@ const Page = props => {
               <div className="page-header-container uk-margin-bottom">
                 <h4></h4>
                 <span className="page-subheader">
+                  <Link to={`${window.location.pathname}/edit`}>
+                    <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+                  </Link>
                   Updated as of <DayJS format="MM-DD-YYYY">{state.page.updated_at}</DayJS>
                 </span>
               </div>

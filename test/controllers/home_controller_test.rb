@@ -2,12 +2,23 @@ require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
 
-  test "home#form should return all notebooks" do
-    get form_path
+  test "home#form_add should return all notebooks" do
+    get form_add_path
     res = response.parsed_body
     assert_equal 2, res.length
     assert res.fetch('notebooks')
     assert res.fetch('categories')
+    assert_equal Notebook.all.length, res['notebooks'].length
+    assert_equal Category.all.length, res['categories'].length
+  end
+
+  test "home#form_edit should return all notebooks" do
+    get form_edit_path(slug: 'rails-test-2')
+    res = response.parsed_body
+    assert_equal 3, res.length
+    assert res.fetch('notebooks')
+    assert res.fetch('categories')
+    assert res.fetch('page')
     assert_equal Notebook.all.length, res['notebooks'].length
     assert_equal Category.all.length, res['categories'].length
   end

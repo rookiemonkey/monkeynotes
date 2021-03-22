@@ -5,7 +5,7 @@ import DayJS from 'react-dayjs'
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 
 const PageItem = ({ page, full, notebook }) => {
-  const { language, content, subject, updated_at } = page
+  const { language, content, subject, slug, updated_at } = page
   const html = styleCodeBlocks(content.body, language)
 
   return (
@@ -15,12 +15,15 @@ const PageItem = ({ page, full, notebook }) => {
         <h4>
           <Link className="page-header"
             to={{
-              pathname: `${window.location.pathname}/${page.slug}`,
+              pathname: `${window.location.pathname}/${slug}`,
               state: { notebook: { ...notebook }, page: { subject } }
             }}
           >{subject}</Link>
         </h4>
         <span className="page-subheader">
+          <Link to={`${window.location.pathname}/${slug}/edit`}>
+            <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+          </Link>
           Updated as of <DayJS format="MM-DD-YYYY">{updated_at}</DayJS>
         </span>
       </div>

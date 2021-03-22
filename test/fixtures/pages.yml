@@ -3,28 +3,31 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
 
 one:
   subject: "Rails Test 1"
-  content: "<p>all about rails</p>"
+  slug: "rails-test-1"
+  language: "ruby"
   id: 1
   notebook_id: 1
 
 two:
   subject: "Rails Test 2"
-  content: "<p>all about rails</p>"
+  slug: "rails-test-2"
+  language: "ruby"
   id: 2
   notebook_id: 2
 
 three:
-  subject: "Rails Test 2"
-  content: "<p>ito wala lang</p>"
+  subject: "Rails Test 3"
+  slug: "rails-test-3"
+  language: "ruby"
   id: 3
   notebook_id: 2
 
 four:
-  subject: "Rails Test 2"
-  content: "<p>Vegeta</p>"
+  subject: "Rails Test 4"
+  slug: "rails-test-4"
+  language: "ruby"
   id: 4
   notebook_id: 1
