@@ -1,4 +1,19 @@
-# one:
-#   record: name_of_fixture (ClassOfFixture)
-#   name: content
-#   body: <p>In a <i>million</i> stars!</p>
+page_one:
+  record: one (Page)
+  name: content
+  body: <p>FOR PAGE ONE Lorem ipsum dolor sit amet.</p>
+
+page_two:
+  record: two (Page)
+  name: content
+  body: <p>FOR PAGE TWO Lorem ipsum dolor sit amet.</p>
+
+page_three:
+  record: three (Page)
+  name: content
+  body: <p>FOR PAGE THREE Lorem ipsum dolor sit amet.</p>
+
+page_four:
+  record: four (Page)
+  name: content
+  body: <p>FOR PAGE FOUR Lorem ipsum dolor sit amet.</p>

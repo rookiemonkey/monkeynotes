@@ -1,21 +1,28 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 import { TrixEditor } from "react-trix";
 import Nav from '../shared/Nav'
-import parseForm from '../utilities/parseForm';
+import parseForm from '../utilities/parseForm'
 
-const FormAddPage = () => {
-  const [state, setState] = useState({ isNewNotebook: true, isNewCategory: true })
-  const [dataFromDb, setDataFromDb] = useState({});
+const FormEditPage = () => {
+  const { pageSlug } = useParams()
+  const [state, setState] = useState({ isNewNotebook: false, isNewCategory: true })
+  const [form, setForm] = useState({});
+  const [data, setData] = useState({});
 
   useEffect(() => {
     (async () => {
-      const raw = await fetch('/form/add')
+      const raw = await fetch(`/form/edit/${pageSlug}`)
       const res = await raw.json()
-      setDataFromDb(res)
+      setData(res)
+      setForm({ ...res.page })
+      setState({ ...state, html: res.page.content.body })
     })()
   }, [])
 
   const handleChangeEditor = useCallback(html => setState({ ...state, html }))
+
+  const handleChangeInputs = useCallback(({ target }) => setForm({ ...form, [target.name]: target.value }))
 
   const handleChangeOption = useCallback(({ target }) =>
     target.value == 'new'
@@ -26,13 +33,13 @@ const FormAddPage = () => {
   const handleOnSubmit = useCallback(async e => {
     e.preventDefault()
     const raw = new FormData(e.target)
-    const data = parseForm(raw)
+    const formdata = parseForm(raw)
     const token = document.querySelector('meta[name="csrf-token"]').content
 
-    const res = await fetch('/pages/new', {
+    const res = await fetch(`/pages/${pageSlug}/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify({ page: { ...data, content: state.html, is_update: 'false' } })
+      body: JSON.stringify({ page: { ...formdata, content: state.html, is_update: 'true' } })
     })
   })
 
@@ -49,6 +56,8 @@ const FormAddPage = () => {
               <input type="text"
                 className="uk-input uk-form-controls"
                 name="subject"
+                value={form.subject && form.subject}
+                onChange={handleChangeInputs}
                 required
               />
             </div>
@@ -63,25 +72,46 @@ const FormAddPage = () => {
               <input type="text"
                 className="uk-input uk-form-controls"
                 name="language"
+                value={form.language && form.language}
+                onChange={handleChangeInputs}
                 required
               />
             </div>
 
             <div className="uk-margin-bottom uk-width-4-4@l">
-              <TrixEditor onChange={handleChangeEditor} />
+              {
+                !data.page && <TrixEditor />
+              }
+              {
+                data.page && <TrixEditor
+                  onChange={handleChangeEditor}
+                  value={data.page.content && data.page.content.body}
+                />
+              }
             </div>
 
             <div className="uk-margin-bottom uk-width-1-2@l">
               <label className="uk-form-label">Notebook</label>
               <span className="uk-form-helper">What notebook does this new page relates to?</span>
-              <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption} data-state="isNewNotebook">
-                <option value="new" default>New</option>
-                {
-                  dataFromDb.notebooks && dataFromDb.notebooks.map(n => (
-                    <option key={n.id} value={n.id}>{n.subject}</option>
-                  ))
-                }
-              </select>
+              {
+                !data.page && (
+                  <select className="uk-select uk-form-controls" defaultValue="new">
+                  </select>
+                )
+              }
+
+              {
+                data.page && (
+                  <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption} data-state="isNewNotebook" defaultValue={data.page.notebook_id}>
+                    <option value="new">New</option>
+                    {
+                      data.notebooks && data.notebooks.map(n =>
+                        <option key={n.id} value={n.id}>{n.subject}</option>
+                      )
+                    }
+                  </select>
+                )
+              }
             </div>
 
 
@@ -105,9 +135,9 @@ const FormAddPage = () => {
                   <select className="uk-select uk-form-controls" name="category_id" onChange={handleChangeOption} data-state="isNewCategory">
                     <option value="new">New</option>
                     {
-                      dataFromDb.categories && dataFromDb.categories.map(c => (
+                      data.categories && data.categories.map(c =>
                         <option key={c.id} value={c.id}>{c.subject}</option>
-                      ))
+                      )
                     }
                   </select>
                 </div>
@@ -137,8 +167,8 @@ const FormAddPage = () => {
         </div>
       </div>
 
-    </React.Fragment>
+    </React.Fragment >
   )
 }
 
-export default FormAddPage;
+export default FormEditPage

@@ -26,6 +26,15 @@
   font-size: 0.75rem !important;
 }
 
+.page-subheader a {
+  color: $blue;
+  transition: color 250ms ease-in-out;
+}
+
+.page-subheader a:hover {
+  color: $external-link-dark;
+}
+
 .page-subheader time {
   font-weight: 600;
   color: $red !important;
