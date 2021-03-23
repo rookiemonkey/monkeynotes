@@ -31,3 +31,10 @@ four:
   language: "ruby"
   id: 4
   notebook_id: 1
+
+five:
+  subject: "duplicated page"
+  slug: "duplicated-page"
+  language: "ruby"
+  id: 5
+  notebook_id: 1
