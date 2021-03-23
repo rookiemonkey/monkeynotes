@@ -4,13 +4,15 @@ class PageController < ApplicationController
 
   def create
     create_page_with_associations if @is_new_notebook
-    create_page_only_for Notebook.find(page_params[:notebook_id].to_i) unless @is_new_notebook
+    Notebook.find(page_params[:notebook_id].to_i).pages << new_page unless @is_new_notebook
+    render json: { message: 'Successfully created a page' }, status: :ok
   end
 
   def update
     @page = Page.find_by(slug: params[:slug])
-    @page.update page_params
+    raise UpdatePageError.new @page.errors.full_messages.last if !@page.update page_params and !@is_new_notebook
     create_page_with_associations if @is_new_notebook
+    render json: { message: 'Successfully updated the page' }, status: :ok
   end
 
   def page
@@ -23,23 +25,28 @@ class PageController < ApplicationController
 
   private
 
-  def page_params
-    params.require(:page).permit(:subject, :language, :content, :notebook_id)
-  end
-
-  def page_params_others
-    params.require(:page).permit(:subject, :language, :content, :notebook_id, :notebook_subject, :category_id, :category_subject, :is_update)
-  end
-
   def set_is_new_notebook
     @is_new_notebook = (page_params[:notebook_id] == 'new' and 
                         page_params_others[:notebook_subject].present?)
   end
 
-  def create_page_only_for(notebook)
-    notebook.pages.create(subject: page_params[:subject], 
-                          content: page_params[:content], 
-                          language: page_params[:language])
+  def page_params
+    params.require(:page).permit( :subject, :language, :content, :notebook_id)
+  end
+
+  def page_params_others
+    params.require(:page).permit( :subject, :language, :content, :notebook_id, 
+                                  :notebook_subject, :category_id, :category_subject, :is_update)
+  end
+
+  def new_page
+    page = Page.new( subject: page_params[:subject], 
+                    content: page_params[:content], 
+                    language: page_params[:language])
+
+    page.valid?    
+    raise CreatePageError.new page.errors.full_messages.last if page.errors.full_messages.length >= 2
+    page
   end
 
   def create_page_with_associations
@@ -48,16 +55,21 @@ class PageController < ApplicationController
   end
 
   def create_new_category_and_notebook_for_page
+    page = new_page
     category = Category.create(subject: page_params_others[:category_subject])
+    raise CreateCategoryError.new category.errors.full_messages.first unless category.valid?
     notebook = Notebook.create(subject: page_params_others[:notebook_subject], category: category)
-    create_page_only_for notebook unless page_params_others[:is_update].to_bool
+    raise CreateNotebookError.new notebook.errors.full_messages.first unless notebook.valid?
+    notebook.pages << page unless page_params_others[:is_update].to_bool
     notebook.pages << @page if page_params_others[:is_update].to_bool
   end
 
   def create_new_notebook_only_for_page
-    category = Category.find(page_params_others[:category_id])
+    page = new_page
+    category = Category.find(page_params_others[:category_id])  
     notebook = Notebook.create(subject: page_params_others[:notebook_subject], category: category)
-    create_page_only_for notebook unless page_params_others[:is_update].to_bool
+    raise CreateNotebookError.new notebook.errors.full_messages.first unless notebook.valid?
+    notebook.pages << page unless page_params_others[:is_update].to_bool
     notebook.pages << @page if page_params_others[:is_update].to_bool
   end
 
