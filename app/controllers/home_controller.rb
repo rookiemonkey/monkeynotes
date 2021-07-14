@@ -36,7 +36,9 @@ class HomeController < ApplicationController
         AND record_type = 'Page'
     SQL
 
-    Page.joins(join).where("action_text_rich_texts.body LIKE ?", "%#{params[:search]}%")
+    # lower(string) - normalizes the data from database to remove case sensitivity
+    # ofcourse it should be compared to a normalized version of the query params[:search].downcase
+    Page.joins(join).where("lower(action_text_rich_texts.body) LIKE ?", "%#{params[:search].downcase}%")
   end
 
 end
