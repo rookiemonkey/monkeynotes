@@ -56,7 +56,7 @@ const Categories = () => {
           {!search.isSearching && (
             <ul className="uk-list">
               {
-                state.data.map(category => <CategoryItem category={category} />)
+                state.data.map(category => <CategoryItem key={category.id} category={category} />)
               }
             </ul>
           )}
@@ -64,7 +64,7 @@ const Categories = () => {
           {search.isSearching && (
             <ul className="uk-list">
               {
-                search.data.pages.map(page => <PageItem page={page} full={true} />)
+                search.data.pages.map(page => <PageItem key={page.id} page={page} full={true} query={input.current.value} />)
               }
             </ul>
           )}

@@ -78,7 +78,7 @@ const Notebook = props => {
 
             {
               search.isSearching &&
-              search.data.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} />)
+              search.data.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} query={input.current.value} />)
             }
 
           </div>

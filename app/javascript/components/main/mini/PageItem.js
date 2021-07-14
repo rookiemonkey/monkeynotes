@@ -3,10 +3,12 @@ import { Markup } from 'interweave';
 import { Link } from 'react-router-dom'
 import DayJS from 'react-dayjs'
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
+import highlightQuery from '../../utilities/highlightQuery';
 
-const PageItem = ({ page, full, notebook }) => {
+const PageItem = ({ page, full, notebook, query }) => {
   const { language, content, subject, slug, updated_at } = page
-  const html = styleCodeBlocks(content.body, language)
+  let html = styleCodeBlocks(content.body, language);
+      html = highlightQuery(html, query)
 
   return (
     <div className={`page-item uk-padding-small ${full ? 'page-item-full' : ''}`}>
