@@ -29,11 +29,13 @@ const FormAddPage = () => {
     const data = parseForm(raw)
     const token = document.querySelector('meta[name="csrf-token"]').content
 
-    const res = await fetch('/pages/new', {
+    await fetch('/pages/new', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
       body: JSON.stringify({ page: { ...data, content: state.html, is_update: 'false' } })
     })
+
+    e.target.reset();
   })
 
   return (
@@ -50,6 +52,7 @@ const FormAddPage = () => {
                 className="uk-input uk-form-controls"
                 name="subject"
                 required
+                autoComplete="off"
               />
             </div>
 
@@ -64,6 +67,7 @@ const FormAddPage = () => {
                 className="uk-input uk-form-controls"
                 name="language"
                 required
+                autoComplete="off"
               />
             </div>
 
@@ -92,7 +96,9 @@ const FormAddPage = () => {
                   <input type="text"
                     className="uk-input uk-form-controls"
                     name="notebook_subject"
-                    required />
+                    required 
+                    autoComplete="off"
+                  />
                 </div>
               )
             }
@@ -121,7 +127,9 @@ const FormAddPage = () => {
                   <input type="text"
                     className="uk-input uk-form-controls"
                     name="category_subject"
-                    required />
+                    required 
+                    autoComplete="off"
+                  />
                 </div>
               )
             }
