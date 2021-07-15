@@ -12,6 +12,8 @@ class PageController < ApplicationController
     @page = Page.find_by(slug: params[:slug])
     raise UpdatePageError.new @page.errors.full_messages.last if !@page.update page_params and !@is_new_notebook
     create_page_with_associations if @is_new_notebook
+    @page.notebook.update(updated_at: @page.created_at) unless @page.notebook.nil?
+    @page.notebook.category.update(updated_at: @page.created_at) unless @page.notebook.category.nil?
     render json: { message: 'Successfully updated the page' }, status: :ok
   end
 

@@ -350,4 +350,18 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+
+  test "page#update should also update the notebooks's updated_at attribute" do
+    @params[:page][:is_update] = 'true'
+    @params[:page][:language] = 'aSSembLY'
+    @params[:page][:notebook_id] = 'new'
+    @params[:page][:notebook_subject] = 'New Subject!'
+    @params[:page][:category_id] = 'new'
+    @params[:page][:category_subject] = 'Talong'
+    post page_update_path(slug: @page.slug), params: @params
+    @page.reload
+    assert_equal @page.created_at, @page.notebook.updated_at
+    assert_equal @page.created_at, @page.notebook.category.updated_at
+  end
+
 end
