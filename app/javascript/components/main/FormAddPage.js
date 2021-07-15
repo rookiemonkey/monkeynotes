@@ -56,7 +56,7 @@ const FormAddPage = () => {
             <div className="uk-margin-bottom uk-width-1-2@l">
               <label className="uk-form-label">Page Language</label>
               <span className="uk-form-helper">
-                <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MDs" target="_blank" rel="nofollow noreferrer">
+                <a href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MD" target="_blank" rel="nofollow noreferrer">
                   Please Follow Alias for syntax highlighting
                 </a>
               </span>
