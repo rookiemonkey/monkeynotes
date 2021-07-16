@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   post  '/pages/new',                     to: 'page#create',                    as: 'page_create'
   get   '/pages/:slug',                   to: 'page#page',                      as: 'page'
   post  '/pages/:slug/update',            to: 'page#update',                    as: 'page_update'
-
+  post  '/categories/:category_id',       to: 'category#update',                as: 'category_update'
+  delete'/categories/:category_id',       to: 'category#delete',                as: 'category_delete'
 end

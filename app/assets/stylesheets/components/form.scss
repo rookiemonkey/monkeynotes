@@ -7,6 +7,16 @@
   margin-left: 5px;
 }
 
+.uk-button-delete {
+  background-color: $red;
+  color: white;
+}
+
+.uk-button-delete:hover {
+  background-color: darken($color: $red, $amount: 1.5);
+  color: white;
+}
+
 trix-editor {
   min-height: 250px;
   background-color: #ffff;

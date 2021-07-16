@@ -5,6 +5,7 @@ module Exceptions
     class UpdatePageError < StandardError; end
     class CreateCategoryError < StandardError; end
     class CreateNotebookError < StandardError; end
+    class UpdateCategoryError < StandardError; end
 
   end
 end
