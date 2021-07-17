@@ -364,4 +364,19 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     assert_equal @page.created_at, @page.notebook.category.updated_at
   end
 
+
+  test "page#delete should delete the page" do
+    assert_difference(['Page.count'], -1) do
+      delete page_delete_path(slug: @page.slug)
+      res = JSON.parse(response.body)
+      assert_equal res['message'], 'Successfully deleted the page'
+    end
+  end
+  
+  test "page#delete should not delete any notebook or category" do
+    assert_no_difference(['Notebook.count', 'Category.count']) do
+      delete page_delete_path(slug: @page.slug)
+    end
+  end
+
 end

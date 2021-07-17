@@ -1,6 +1,7 @@
 class PageController < ApplicationController
 
-  before_action :set_is_new_notebook, only: [:create, :update]
+  before_action :set_page, except: %i[create]
+  before_action :set_is_new_notebook, only: %i[create update]
 
   def create
     create_page_with_associations if @is_new_notebook
@@ -9,7 +10,6 @@ class PageController < ApplicationController
   end
 
   def update
-    @page = Page.find_by(slug: params[:slug])
     raise UpdatePageError.new @page.errors.full_messages.last if !@page.update page_params and !@is_new_notebook
     create_page_with_associations if @is_new_notebook
     @page.notebook.update(updated_at: @page.created_at) unless @page.notebook.nil?
@@ -17,8 +17,12 @@ class PageController < ApplicationController
     render json: { message: 'Successfully updated the page' }, status: :ok
   end
 
+  def delete
+    @page.destroy
+    render json: { message: 'Successfully deleted the page' }, status: :ok
+  end
+
   def page
-    @page = Page.find_by(slug: params[:slug])
     render json: { notebook: @page.notebook, page: @page }
   end
 
@@ -26,6 +30,10 @@ class PageController < ApplicationController
 
 
   private
+
+  def set_page
+    @page = Page.find_by(slug: params[:slug])
+  end
 
   def set_is_new_notebook
     @is_new_notebook = (page_params[:notebook_id] == 'new' and 

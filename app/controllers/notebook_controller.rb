@@ -1,4 +1,5 @@
 class NotebookController < ApplicationController
+  before_action :set_notebook, except: %i[all]
 
   def all
     response = Array.new
@@ -13,8 +14,18 @@ class NotebookController < ApplicationController
   end
 
   def notebook
-    notebook = Notebook.find_by(slug: params[:slug])
-    render json: { notebook: notebook, pages: notebook.pages.order(updated_at: :desc) }
+    render json: { notebook: @notebook, pages: @notebook.pages.order(updated_at: :desc) }
+  end
+
+  def delete
+    @notebook.destroy
+    render json: { message: 'Successfully deleted the notebook' }, status: :ok
+  end
+
+  private
+
+  def set_notebook
+    @notebook = Notebook.find_by(slug: params[:slug])
   end
 
 end
