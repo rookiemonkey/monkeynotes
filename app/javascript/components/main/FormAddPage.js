@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { TrixEditor } from "react-trix";
 import Nav from '../shared/Nav'
 import parseForm from '../utilities/parseForm';
+import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const FormAddPage = () => {
   const [state, setState] = useState({ isNewNotebook: true, isNewCategory: true })
@@ -25,16 +26,8 @@ const FormAddPage = () => {
 
   const handleOnSubmit = useCallback(async e => {
     e.preventDefault()
-    const raw = new FormData(e.target)
-    const data = parseForm(raw)
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    await fetch('/pages/new', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify({ page: { ...data, content: state.html, is_update: 'false' } })
-    })
-
+    const formData = parseForm(new FormData(e.target))
+    await simplifiedFetch('/pages/new', 'POST', { page: { ...formData, content: state.html, is_update: 'false' } })
     e.target.reset();
   })
 

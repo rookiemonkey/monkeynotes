@@ -4,6 +4,7 @@ import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import NoResult from '../shared/NoResults'
 import PageItem from './mini/PageItem'
+import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const Notebook = props => {
   const { notebook } = props.location.state
@@ -24,20 +25,16 @@ const Notebook = props => {
   const handleSearch = useCallback(async e => {
     e.preventDefault()
     setSearch({ ...search, hasStarted: true })
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    const raw = await fetch(`/search/${search.id}/pages`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify({ search: input.current.value })
-    })
-
-    const data = await raw.json()
+    const data = await simplifiedFetch(`/search/${search.id}/pages`, 'POST', { search: input.current.value })
     setSearch({ ...search, hasStarted: false, isSearching: true, data: data })
   })
 
   const handleChange = useCallback(({ target }) => {
     if (target.value == '') setSearch({ ...search, isSearching: false })
+  })
+
+  const handleDelete = useCallback(() => {
+    alert("Deleting this notebook")
   })
 
   return (
@@ -53,6 +50,12 @@ const Notebook = props => {
             </li>
             <li>
               <span className="current" >{notebook.subject}</span>
+            </li>
+            <li className="uk-align-right not-breadcrumb">
+              <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={handleDelete}>
+                <span uk-icon="trash" style={{ marginRight: '5px' }}></span>
+                Delete
+              </button>
             </li>
           </ul>
 

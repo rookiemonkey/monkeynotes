@@ -19,3 +19,7 @@
   font-weight: 800;
   color: $red !important;
 }
+
+.not-breadcrumb::before {
+  content: '' !important;
+}

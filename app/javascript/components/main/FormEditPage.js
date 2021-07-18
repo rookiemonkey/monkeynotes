@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { TrixEditor } from "react-trix";
 import Nav from '../shared/Nav'
 import parseForm from '../utilities/parseForm'
+import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const FormEditPage = () => {
   const { pageSlug } = useParams()
@@ -32,15 +33,8 @@ const FormEditPage = () => {
 
   const handleOnSubmit = useCallback(async e => {
     e.preventDefault()
-    const raw = new FormData(e.target)
-    const formdata = parseForm(raw)
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    const res = await fetch(`/pages/${pageSlug}/update`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify({ page: { ...formdata, content: state.html, is_update: 'true' } })
-    })
+    const formdata = parseForm(new FormData(e.target))
+    await simplifiedFetch(`/pages/${pageSlug}/update`, 'POST', { page: { ...formdata, content: state.html, is_update: 'true' } })
   })
 
   return (

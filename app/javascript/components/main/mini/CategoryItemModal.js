@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import Modal from 'react-modal'
 import parseForm from '../../utilities/parseForm'
+import simplifiedFetch from '../../utilities/simplifiedFetch';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
@@ -21,34 +22,17 @@ const CategoryItemModal = ({ isOpen, closeModal, category }) => {
 
   const handleOnChange = useCallback(() => setCategoryName(input.current.value), [])
 
-  const handleOnClose = useCallback(() => {
-    setCategoryName(category.subject)
-    closeModal()
-  }, [])
+  const handleOnClose = useCallback(() => { setCategoryName(category.subject); closeModal() }, [])
 
   const handleOnUpdate = useCallback(async e => {
     e.preventDefault()
-    const raw = new FormData(e.target)
-    const data = parseForm(raw)
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    await fetch(`/categories/${category.id}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify(data)
-    })
-
+    const formData = parseForm(new FormData(e.target))
+    await simplifiedFetch(`/categories/${category.id}`, 'POST', formData)
     closeModal()
   }, [])
 
   const handleOnDelete = useCallback(async () => {
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    await fetch(`/categories/${category.id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, }
-    })
-
+    await simplifiedFetch(`/categories/${category.id}`, 'DELETE')
     closeModal()
   })
 

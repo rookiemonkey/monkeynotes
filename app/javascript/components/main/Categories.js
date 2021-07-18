@@ -4,6 +4,7 @@ import Loader from '../shared/Loader'
 import NoResults from '../shared/NoResults'
 import PageItem from './mini/PageItem'
 import CategoryItem from './mini/CategoryItem'
+import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const Categories = () => {
   const [state, setState] = useState({ isLoaded: false, data: [] });
@@ -21,15 +22,7 @@ const Categories = () => {
   const handleSearch = useCallback(async e => {
     e.preventDefault()
     setSearch({ hasStarted: true, ...search })
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    const raw = await fetch('/search/pages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', "X-CSRF-Token": token, },
-      body: JSON.stringify({ search: input.current.value })
-    })
-
-    const data = await raw.json()
+    const data = await simplifiedFetch(`/search/pages`, 'POST', { search: input.current.value })
     setSearch({ hasStarted: false, isSearching: true, data: data })
   })
 
