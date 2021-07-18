@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get   '/notebook/all',                  to: 'notebook#all',                   as: 'notebook_all'
   get   '/notebook/:slug',                to: 'notebook#notebook',              as: 'notebook'
   delete'/notebook/:slug',                to: 'notebook#delete',                as: 'notebook_delete'
+  put   '/notebook/:slug',                to: 'notebook#update',                as: 'notebook_update'
   post  '/pages/new',                     to: 'page#create',                    as: 'page_create'
   get   '/pages/:slug',                   to: 'page#page',                      as: 'page'
   delete'/pages/:slug',                   to: 'page#delete',                    as: 'page_delete'

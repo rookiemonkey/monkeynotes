@@ -22,6 +22,11 @@ class NotebookController < ApplicationController
     render json: { message: 'Successfully deleted the notebook' }, status: :ok
   end
 
+  def update
+    @notebook.update(subject: params[:subject])
+    render json: { message: 'Successfully updated the notebook' }, status: :ok
+  end
+
   private
 
   def set_notebook
