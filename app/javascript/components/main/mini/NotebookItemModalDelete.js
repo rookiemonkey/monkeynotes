@@ -28,7 +28,7 @@ const NotebookItemModalDelete = ({ isOpen, closeModal, slug }) => {
   return (
     <Modal isOpen={isOpen} style={modalStyle}>
       <div>
-        <span uk-icon="close" style={{ marginRight: '5px', float: 'right' }} onClick={closeModal}>
+        <span uk-icon="close" style={{ float: 'right' }} onClick={closeModal}>
         </span>
       </div>
 
