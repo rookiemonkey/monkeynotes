@@ -4,12 +4,14 @@ import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import NoResult from '../shared/NoResults'
 import PageItem from './mini/PageItem'
+import NotebookItemModalDelete from './mini/NotebookItemModalDelete'
 import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const Notebook = props => {
   const { notebook } = props.location.state
   const [state, setState] = useState({})
   const [search, setSearch] = useState({ isSearching: false, hasStarted: false, id: null, data: {} })
+  const [isModalDeletionOpen, setIsModalDeletionOpen] = useState(false)
   const { slug } = useParams()
   const input = useRef(null)
 
@@ -33,13 +35,18 @@ const Notebook = props => {
     if (target.value == '') setSearch({ ...search, isSearching: false })
   })
 
-  const handleDelete = useCallback(() => {
-    alert("Deleting this notebook")
-  })
+  const openModalForDeletion = useCallback(() => setIsModalDeletionOpen(true), [])
+  const closeModalForDeletion = useCallback(() => setIsModalDeletionOpen(false), [])
 
   return (
     <React.Fragment>
       <Nav />
+
+      <NotebookItemModalDelete 
+        isOpen={isModalDeletionOpen}
+        closeModal={closeModalForDeletion}
+        slug={slug}
+      />
 
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container">
@@ -52,7 +59,7 @@ const Notebook = props => {
               <span className="current" >{notebook.subject}</span>
             </li>
             <li className="uk-align-right not-breadcrumb">
-              <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={handleDelete}>
+              <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={openModalForDeletion}>
                 <span uk-icon="trash" style={{ marginRight: '5px' }}></span>
                 Delete
               </button>
