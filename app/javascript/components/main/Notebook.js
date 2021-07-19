@@ -60,9 +60,9 @@ const Notebook = props => {
       />
 
       <div className="uk-section uk-padding-remove-top">
-        <div className="uk-container">
+        <div className="uk-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-          <ul className="uk-breadcrumb">
+          <ul className="uk-breadcrumb" style={{ width: '75%' }}>
             <li>
               <Link to="/">Notebooks</Link>
             </li>
@@ -80,7 +80,9 @@ const Notebook = props => {
             </li>
           </ul>
 
-          <form onSubmit={handleSearch} className="uk-search uk-search-navbar uk-margin-bottom uk-width-1-1@l">
+          <form onSubmit={handleSearch} 
+                style={{ width: '75%' }}
+                className="uk-search uk-search-navbar uk-margin-bottom uk-width-1-1@l">
             <div className="uk-flex uk-flex-middle">
               <span uk-icon="search" style={{ marginRight: '10px' }}></span>
               <input onChange={handleChange} ref={input} className="uk-search-input" name="search" type="search" placeholder="What are you looking for in this notebook?" autoComplete='off' />

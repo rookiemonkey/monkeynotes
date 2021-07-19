@@ -24,9 +24,9 @@ const Page = props => {
       <Nav />
 
       <div className="uk-section uk-padding-remove-top">
-        <div className="uk-container">
+        <div className="uk-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-          <ul className="uk-breadcrumb uk-margin-bottom">
+          <ul className="uk-breadcrumb uk-margin-bottom" style={{ width: '75%' }}>
             <li>
               <Link to="/">
                 Notebooks
@@ -44,6 +44,18 @@ const Page = props => {
                 {page.subject}
               </span>
             </li>
+              {
+                state.page && (
+                  <li className="uk-align-right not-breadcrumb">
+                    <span className="page-subheader">
+                      <Link to={`${window.location.pathname}/edit`}>
+                        <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+                      </Link>
+                      Updated as of <DayJS format="MM-DD-YYYY">{state.page.updated_at}</DayJS>
+                    </span>
+                  </li>
+                )
+              }
           </ul>
 
           {
@@ -52,21 +64,7 @@ const Page = props => {
 
           {
             state.page && (
-              <div className="page-header-container uk-margin-bottom">
-                <h4></h4>
-                <span className="page-subheader">
-                  <Link to={`${window.location.pathname}/edit`}>
-                    <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
-                  </Link>
-                  Updated as of <DayJS format="MM-DD-YYYY">{state.page.updated_at}</DayJS>
-                </span>
-              </div>
-            )
-          }
-
-          {
-            state.page && (
-              <div className="page-content-container">
+              <div className="page-content-container" style={{ width: '75%' }}>
                 <Markup
                   content={styleCodeBlocks(state.page.content.body, state.page.language)}
                   allowAttributes="true"
