@@ -26,6 +26,16 @@
   font-size: 0.75rem !important;
 }
 
+.page-subheader span[uk-icon='trash'] {
+  color: lighten($color: $red, $amount: 5);
+  transition: color 250ms ease-in-out;
+  cursor: pointer;
+}
+
+.page-subheader span[uk-icon='trash']:hover {
+  color: $red;
+}
+
 span[uk-icon='close'],
 .category-subheader span,
 .page-subheader a {
