@@ -6,6 +6,7 @@ module Exceptions
     class CreateCategoryError < StandardError; end
     class CreateNotebookError < StandardError; end
     class UpdateCategoryError < StandardError; end
+    class AuthenticationError < StandardError; end
 
   end
 end

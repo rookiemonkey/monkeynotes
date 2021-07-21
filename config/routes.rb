@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   post  '/pages/:slug/update',            to: 'page#update',                    as: 'page_update'
   post  '/categories/:category_id',       to: 'category#update',                as: 'category_update'
   delete'/categories/:category_id',       to: 'category#delete',                as: 'category_delete'
+  post  '/login',                         to: 'authentication#login',           as: 'login'
+  delete'/logout',                        to: 'authentication#logout',          as: 'logout'
 end
