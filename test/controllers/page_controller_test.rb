@@ -3,6 +3,7 @@ require "test_helper"
 class PageControllerTest < ActionDispatch::IntegrationTest
 
   def setup
+    login
     @notebook = notebooks(:one)
     @category = categories(:one)
     @page = pages(:one)
@@ -379,4 +380,35 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+
+
+  # UNAUTHORIZED ACTIONS
+
+  test "page#create should be restricted when not logged in" do
+    logout
+    old_page_count = @notebook.pages.length
+    post page_create_path, params: @params
+    @notebook.reload
+    assert_equal old_page_count, @notebook.pages.length
+    assert_equal 'Unauthorized', JSON.parse(response.body)['message']
+  end
+
+  test "page#update should be restricted when not logged in" do
+    logout
+    @params[:page][:is_update] = 'true'
+    @params[:page][:subject] = 'UPDATED SUBJECT!'
+    post page_update_path(slug: @page.slug), params: @params
+    @page.reload
+    assert_equal 'Unauthorized', JSON.parse(response.body)['message']
+    assert_not_equal 'UPDATED SUBJECT!', @page.subject
+    assert_not_equal 'updated-subject', @page.slug
+  end
+
+  test "page#delete should be restricted when not logged in" do
+    logout
+    assert_no_difference(['Notebook.count', 'Category.count', 'Page.count']) do
+      delete page_delete_path(slug: @page.slug)
+      assert_equal 'Unauthorized', JSON.parse(response.body)['message']
+    end
+  end
 end

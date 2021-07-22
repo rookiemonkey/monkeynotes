@@ -10,4 +10,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def login
+    post login_path, params: { email: ENV['USER_EMAIL'], password: ENV['USER_PASSWORD'] }
+  end
+
+  def logout
+    delete logout_path
+  end
 end

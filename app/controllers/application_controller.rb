@@ -2,10 +2,15 @@ class ApplicationController < ActionController::Base
 
   include Exceptions::MonkeynoteErrors
   rescue_from ActiveRecord::RecordNotFound, with: :bad_request_error
+  rescue_from AuthenticationError,          with: :bad_request_error
   rescue_from CreatePageError,              with: :bad_request_error
   rescue_from CreateCategoryError,          with: :bad_request_error
   rescue_from CreateNotebookError,          with: :bad_request_error
   rescue_from UpdatePageError,              with: :bad_request_update_error
+
+  def is_authorized?
+    raise AuthenticationError.new('Unauthorized') unless cookies.encrypted[:auth] == ENV['USER_EMAIL']
+  end
 
   protected
 

@@ -2,6 +2,10 @@ require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
 
+  def setup
+    login
+  end
+
   test "home#form_add should return all notebooks" do
     get form_add_path
     res = response.parsed_body
@@ -10,6 +14,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert res.fetch('categories')
     assert_equal Notebook.all.length, res['notebooks'].length
     assert_equal Category.all.length, res['categories'].length
+  end
+
+  test "home#form_add should be restricted when not logged in" do
+    logout
+    get form_add_path
+    assert_equal "Unauthorized", response.parsed_body['message']
   end
 
   test "home#form_edit should return all notebooks" do
@@ -21,6 +31,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert res.fetch('page')
     assert_equal Notebook.all.length, res['notebooks'].length
     assert_equal Category.all.length, res['categories'].length
+  end
+
+  test "home#form_edit should be restricted when not logged in" do
+    logout
+    get form_edit_path(slug: 'rails-test-2')
+    assert_equal "Unauthorized", response.parsed_body['message']
   end
 
   test "home#search_from_categories should return pages that matches the query" do

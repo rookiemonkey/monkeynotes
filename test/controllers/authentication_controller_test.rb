@@ -3,24 +3,20 @@ require 'yaml'
 
 class AuthenticationControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
-    @env = YAML.load_file(File.expand_path('config/application.yml'))
-  end
-  
   test "auth#login incorrect email" do
-    assert_raises Exceptions::MonkeynoteErrors::AuthenticationError do
-      post login_path, params: { email: 'incorrect_email@gmail.com', password: @env['USER_PASSWORD'] }
-    end
+    post login_path, params: { email: 'incorrect_email@gmail.com', password: ENV['USER_PASSWORD'] }
+    res = JSON.parse(response.body)
+    assert_equal res['message'], 'Unauthorized'
   end
 
   test "auth#login incorrect password" do
-    assert_raises Exceptions::MonkeynoteErrors::AuthenticationError do
-      post login_path, params: { email: @env['USER_EMAIL'], password: 'incorrect password' }
-    end
+    post login_path, params: { email: ENV['USER_EMAIL'], password: 'incorrect password' }
+    res = JSON.parse(response.body)
+    assert_equal res['message'], 'Unauthorized'
   end
 
   test "auth#login using correct login" do
-    post login_path, params: { email: @env['USER_EMAIL'], password: @env['USER_PASSWORD'] }
+    post login_path, params: { email: ENV['USER_EMAIL'], password: ENV['USER_PASSWORD'] }
     res = JSON.parse(response.body)
     assert_equal res['message'], 'Successfully logged in!'
     assert_not_nil cookies['auth']
