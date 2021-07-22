@@ -1,4 +1,5 @@
 class NotebookController < ApplicationController
+  before_action :is_authorized?, only: %i[delete update]
   before_action :set_notebook, except: %i[all]
 
   def all

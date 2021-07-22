@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
+  before_action :is_authorized?, only: %i[form_add form_edit]
 
-  def index
-  end
+  def index; end
 
   def form_add
     notebooks = Notebook.select(:id, :subject)

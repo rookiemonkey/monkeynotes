@@ -1,5 +1,6 @@
 class PageController < ApplicationController
 
+  before_action :is_authorized?, only: %i[create delete update]
   before_action :set_page, except: %i[create]
   before_action :set_is_new_notebook, only: %i[create update]
 

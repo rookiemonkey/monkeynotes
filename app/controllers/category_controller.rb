@@ -1,4 +1,5 @@
 class CategoryController < ApplicationController
+  before_action :is_authorized?
   before_action :set_category
 
   def update
@@ -10,6 +11,8 @@ class CategoryController < ApplicationController
     @category.destroy
     render json: { message: 'Successfully deleted the category' }, status: :ok
   end
+
+  private
 
   def set_category
     @category = Category.find(params[:category_id])
