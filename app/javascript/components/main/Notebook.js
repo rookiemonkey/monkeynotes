@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
+import React, { useCallback, useEffect, useState, useRef, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
@@ -7,8 +7,10 @@ import PageItem from './mini/PageItem'
 import NotebookItemModalDelete from './mini/NotebookItemModalDelete'
 import NotebookItemModalUpdate from './mini/NotebookItemModalUpdate'
 import simplifiedFetch from '../utilities/simplifiedFetch'
+import { AuthContext } from '../context/AuthContext'
 
 const Notebook = props => {
+  const { isLoggedIn } = useContext(AuthContext)
   const { notebook } = props.location.state
   const [state, setState] = useState({})
   const [search, setSearch] = useState({ isSearching: false, hasStarted: false, id: null, data: {} })
@@ -46,18 +48,26 @@ const Notebook = props => {
     <React.Fragment>
       <Nav />
 
-      <NotebookItemModalDelete 
-        isOpen={isModalDeletionOpen}
-        closeModal={closeModalForDeletion}
-        slug={slug}
-      />
+      {
+        isLoggedIn
+          ? (<NotebookItemModalDelete
+            isOpen={isModalDeletionOpen}
+            closeModal={closeModalForDeletion}
+            slug={slug}
+          />)
+          : null
+      }
 
-      <NotebookItemModalUpdate
-        isOpen={isModalUpdatingOpen}
-        closeModal={closeModalForUpdating}
-        slug={slug}
-        subject={notebook.subject}
-      />
+      {
+        isLoggedIn
+          ? (<NotebookItemModalUpdate
+            isOpen={isModalUpdatingOpen}
+            closeModal={closeModalForUpdating}
+            slug={slug}
+            subject={notebook.subject}
+          />)
+          : null
+      }
 
       <div className="uk-section uk-padding-remove-top">
         <div className="uk-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -69,15 +79,21 @@ const Notebook = props => {
             <li>
               <span className="current" >{notebook.subject}</span>
             </li>
-            <li className="uk-align-right not-breadcrumb">
-              <button type="button" className="uk-button uk-button-default uk-button-default" onClick={openModalForUpdating}>
-                <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
-              </button>
+            {
+              isLoggedIn
+                ? (
+                  <li className="uk-align-right not-breadcrumb">
+                    <button type="button" className="uk-button uk-button-default uk-button-default" onClick={openModalForUpdating}>
+                      <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+                    </button>
 
-              <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={openModalForDeletion}>
-                <span uk-icon="trash" style={{ marginRight: '5px' }}></span>
-              </button>
-            </li>
+                    <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={openModalForDeletion}>
+                      <span uk-icon="trash" style={{ marginRight: '5px' }}></span>
+                    </button>
+                  </li>
+                )
+                : null
+            }
           </ul>
 
           <form onSubmit={handleSearch} 

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Markup } from 'interweave'
 import DayJS from 'react-dayjs'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import styleCodeBlocks from '../utilities/styleCodeBlocks'
+import { AuthContext } from '../context/AuthContext'
 
 const Page = props => {
+  const { isLoggedIn } = useContext(AuthContext)
   const { notebook, page } = props.location.state
   const [state, setState] = useState({ isLoaded: false })
   const { pageSlug } = useParams()
@@ -48,9 +50,13 @@ const Page = props => {
                 state.page && (
                   <li className="uk-align-right not-breadcrumb">
                     <span className="page-subheader">
-                      <Link to={`${window.location.pathname}/edit`}>
-                        <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
-                      </Link>
+                      {
+                        isLoggedIn
+                        ? (<Link to={`${window.location.pathname}/edit`}>
+                          <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+                        </Link>)
+                        : null
+                      }
                       Updated as of <DayJS format="MM-DD-YYYY">{state.page.updated_at}</DayJS>
                     </span>
                   </li>
