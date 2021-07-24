@@ -1,24 +1,19 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
+import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import simplifiedFetch from '../../utilities/simplifiedFetch';
+import { ToastContext } from '../../context/ToastContext';
+import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const modalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  }
-}
-
 const PageItemModalDelete = ({ isOpen, closeModal, slug }) => {
+  const modalStyle = useContext(ModalContext)
+  const toastOptions = useContext(ToastContext)
 
   const handleOnDelete = useCallback(async () => {
-    await simplifiedFetch(`/pages/${slug}`, 'DELETE')
+    const response = await simplifiedFetch(`/pages/${slug}`, 'DELETE')
+    toast(response.message, toastOptions)
     closeModal()
   }, [])
 

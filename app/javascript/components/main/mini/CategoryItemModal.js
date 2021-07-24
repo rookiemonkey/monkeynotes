@@ -1,22 +1,16 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState, useContext } from 'react'
+import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import parseForm from '../../utilities/parseForm'
 import simplifiedFetch from '../../utilities/simplifiedFetch';
+import { ToastContext } from '../../context/ToastContext';
+import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const modalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  }
-}
-
 const CategoryItemModal = ({ isOpen, closeModal, category }) => {
+  const modalStyle = useContext(ModalContext)
+  const toastOptions = useContext(ToastContext)
   const input = useRef(null)
   const [categoryName, setCategoryName] = useState(category.subject)
 
@@ -27,12 +21,14 @@ const CategoryItemModal = ({ isOpen, closeModal, category }) => {
   const handleOnUpdate = useCallback(async e => {
     e.preventDefault()
     const formData = parseForm(new FormData(e.target))
-    await simplifiedFetch(`/categories/${category.id}`, 'POST', formData)
+    const response = await simplifiedFetch(`/categories/${category.id}`, 'POST', formData)
+    toast(response.message, toastOptions)
     closeModal()
   }, [])
 
   const handleOnDelete = useCallback(async () => {
-    await simplifiedFetch(`/categories/${category.id}`, 'DELETE')
+    const response = await simplifiedFetch(`/categories/${category.id}`, 'DELETE')
+    toast(response.message, toastOptions)
     closeModal()
   })
 

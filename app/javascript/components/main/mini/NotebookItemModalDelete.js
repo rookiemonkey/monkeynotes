@@ -1,28 +1,20 @@
-import React, { useCallback } from 'react'
-import { useHistory } from "react-router-dom";
+import React, { useCallback, useContext } from 'react'
+import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import simplifiedFetch from '../../utilities/simplifiedFetch';
+import { ToastContext } from '../../context/ToastContext';
+import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const modalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  }
-}
-
 const NotebookItemModalDelete = ({ isOpen, closeModal, slug }) => {
-  const history = useHistory()
+  const modalStyle = useContext(ModalContext)
+  const toastOptions = useContext(ToastContext)
 
   const handleOnDelete = useCallback(async () => {
-    await simplifiedFetch(`/notebook/${slug}`, 'DELETE')
+    const response = await simplifiedFetch(`/notebook/${slug}`, 'DELETE')
     closeModal()
-    history.goBack()
+    toast(response.message, toastOptions)
   })
 
   return (
