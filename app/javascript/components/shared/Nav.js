@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react'
+import { ToastContainer } from 'react-toastify';
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import AuthLoginModal from './AuthLoginModal'
 import AuthLogoutModal from './AuthLogoutModal'
@@ -23,6 +24,8 @@ const Nav = () => {
       <AuthLoginModal isOpen={isLoginModalOpen} closeModal={closeLoginModal} loggedIn={loggedIn} />
 
       <AuthLogoutModal isOpen={isLogoutModalOpen} closeModal={closeLogoutModal} loggedOut={loggedOut} />
+
+      <ToastContainer />
 
       {
         location.pathname != '/' && (

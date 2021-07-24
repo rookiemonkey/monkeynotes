@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import getCookieValue from '../utilities/getCookieValueValue';
+import getCookieValue from '../utilities/getCookieValue';
 
 const AuthContext = React.createContext();
 

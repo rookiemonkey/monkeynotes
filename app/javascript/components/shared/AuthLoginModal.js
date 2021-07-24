@@ -1,21 +1,15 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useContext } from 'react'
+import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import simplifiedFetch from '../utilities/simplifiedFetch';
+import { ToastContext } from '../context/ToastContext';
+import { ModalContext } from '../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const modalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  }
-}
-
 const AuthLoginModal = ({ isOpen, closeModal, loggedIn }) => {
+  const toastOptions = useContext(ToastContext)
+  const modalStyle = useContext(ModalContext)
   const [formState, setFormState] = useState({email: '', password: ''})
 
   const resetForm = useCallback(() => {
@@ -34,6 +28,7 @@ const AuthLoginModal = ({ isOpen, closeModal, loggedIn }) => {
     resetForm()
     loggedIn()
     closeModal()
+    toast(response.message, toastOptions)
   }, [formState])
 
   return(

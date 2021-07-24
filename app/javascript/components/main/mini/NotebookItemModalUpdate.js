@@ -1,22 +1,16 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState, useContext } from 'react'
+import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import parseForm from '../../utilities/parseForm';
 import simplifiedFetch from '../../utilities/simplifiedFetch';
+import { ToastContext } from '../../context/ToastContext';
+import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const modalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  }
-}
-
 const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject }) => {
+  const modalStyle = useContext(ModalContext)
+  const toastOptions = useContext(ToastContext)
   const [notebookSubject, setNotebookSubject] = useState(subject)
   const input = useRef(null)
 
@@ -25,7 +19,8 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject }) => {
   const handleOnUpdate = useCallback(async e => {
     e.preventDefault()
     const formData = parseForm(new FormData(e.target))
-    await simplifiedFetch(`/notebook/${slug}`, 'PUT', formData)
+    const response = await simplifiedFetch(`/notebook/${slug}`, 'PUT', formData)
+    toast(response.message, toastOptions)
     closeModal()
   })
 
