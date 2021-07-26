@@ -12,6 +12,12 @@ class AuthenticationController < ApplicationController
     render json: { message: 'Successfully logged out!' }, status: :ok
   end
 
+  def check_cookie
+    raise AuthenticationError.new('Unauthorized') unless is_auth_cookie_valid?()
+
+    render json: { message: 'Authorization Cookie is Valid!' }, status: :ok
+  end
+
   private
 
   def are_credentials_a_match

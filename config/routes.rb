@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   delete'/categories/:category_id',       to: 'category#delete',                as: 'category_delete'
   post  '/login',                         to: 'authentication#login',           as: 'login'
   delete'/logout',                        to: 'authentication#logout',          as: 'logout'
+  post  '/check',                         to: 'authentication#check_cookie',    as: 'check_cookie'
 end

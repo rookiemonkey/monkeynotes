@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
     raise AuthenticationError.new('Unauthorized') unless cookies.encrypted[:auth] == ENV['USER_EMAIL']
   end
 
+  # https://philna.sh/blog/2020/01/15/test-signed-cookies-in-rails/
+  def is_auth_cookie_valid?
+    jar = ActionDispatch::Cookies::CookieJar.build(request, cookies.to_hash)
+    jar.encrypted['auth'] == ENV['USER_EMAIL']
+  end
+
   protected
 
   def bad_request_error(message)

@@ -28,5 +28,12 @@ class AuthenticationControllerTest < ActionDispatch::IntegrationTest
     assert_equal res['message'], 'Successfully logged out!'
     assert_nil cookies['auth']
   end
+  
+  test "auth#check_cookie using incorrect cookie value" do
+    cookies[:auth] = { value: 'this-is-a-random-cookie-value', expires: 6.hour.from_now }
+    post check_cookie_path
+    res = JSON.parse(response.body)
+    assert_equal res['message'], 'Unauthorized'
+  end
 
 end
