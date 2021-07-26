@@ -19,7 +19,7 @@ const Nav = () => {
   const closeLogoutModal = useCallback(() => setIsLogoutModalOpen(false), [])
 
   return (
-    <nav className="uk-navbar-container uk-margin uk-navbar-transparent" uk-navbar="true">
+    <nav className="uk-margin-medium-bottom">
 
       <AuthLoginModal isOpen={isLoginModalOpen} closeModal={closeLoginModal} loggedIn={loggedIn} />
 
@@ -27,39 +27,41 @@ const Nav = () => {
 
       <ToastContainer />
 
-      {
-        location.pathname != '/' && (
-          <div className="uk-navbar-left">
-            <button className="uk-navbar-item uk-button nav-buttons" onClick={handleGoBack}>
-              <span uk-icon="chevron-left" style={{ marginRight: '2px' }}></span> Back
-            </button>
-          </div>
-        )
-      }
-
-      <div className="uk-navbar-center">
-        <Link className="uk-navbar-item uk-logo nav-logo" to="/">
-          MONKEYNOTES
-        </Link>
-      </div>
-
-      <div className="uk-navbar-right">
+      <div className="uk-navbar-container uk-navbar-transparent uk-navbar-container-custom" uk-navbar="true">
         {
-          isLoggedIn
-            ? (<Link className="uk-navbar-item uk-button nav-buttons" to="/add/page">
-              <span uk-icon="plus-circle" style={{ marginRight: '5px' }}></span> New Page
-            </Link>)
-            : null
+          location.pathname != '/' && (
+            <div className="uk-navbar-left">
+              <button className="uk-navbar-item uk-button nav-buttons" onClick={handleGoBack}>
+                <span uk-icon="chevron-left" style={{ marginRight: '2px' }}></span> Back
+              </button>
+            </div>
+          )
         }
-        {
-          isLoggedIn
-            ? (<button className="uk-navbar-item uk-button nav-buttons" onClick={openLogoutModal}>
-              <span uk-icon="sign-out" style={{ marginRight: '5px' }}></span> Logout
-            </button>)
-            : (<button className="uk-navbar-item uk-button nav-buttons" onClick={openLoginModal}>
-              <span uk-icon="sign-in" style={{ marginRight: '5px' }}></span> Login
-            </button>)
-        }
+
+        <div className="uk-navbar-center">
+          <Link className="uk-navbar-item uk-logo nav-logo" to="/">
+            MONKEYNOTES
+          </Link>
+        </div>
+
+        <div className="uk-navbar-right">
+          {
+            isLoggedIn
+              ? (<Link className="uk-navbar-item uk-button nav-buttons" to="/add/page">
+                <span uk-icon="plus-circle" style={{ marginRight: '5px' }}></span> New Page
+              </Link>)
+              : null
+          }
+          {
+            isLoggedIn
+              ? (<button className="uk-navbar-item uk-button nav-buttons" onClick={openLogoutModal}>
+                <span uk-icon="sign-out" style={{ marginRight: '5px' }}></span> Logout
+              </button>)
+              : (<button className="uk-navbar-item uk-button nav-buttons" onClick={openLoginModal}>
+                <span uk-icon="sign-in" style={{ marginRight: '5px' }}></span> Login
+              </button>)
+          }
+        </div>
       </div>
 
     </nav>
