@@ -83,13 +83,8 @@ const Notebook = props => {
               isLoggedIn
                 ? (
                   <li className="uk-align-right not-breadcrumb">
-                    <button type="button" className="uk-button uk-button-default uk-button-default" onClick={openModalForUpdating}>
-                      <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
-                    </button>
-
-                    <button type="button" className="uk-button uk-button-default uk-button-delete" onClick={openModalForDeletion}>
-                      <span uk-icon="trash" style={{ marginRight: '5px' }}></span>
-                    </button>
+                    <span uk-icon="trash" className="delete-icon" style={{ marginRight: '5px' }} onClick={openModalForDeletion}></span>
+                    <span uk-icon="pencil" className="edit-icon"  style={{ marginRight: '5px' }} onClick={openModalForUpdating}></span>
                   </li>
                 )
                 : null

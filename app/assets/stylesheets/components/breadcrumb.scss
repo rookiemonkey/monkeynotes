@@ -9,15 +9,32 @@
   transition: none !important;
 }
 
-.uk-breadcrumb li:last-child > a:hover,
-.uk-breadcrumb li:last-child > span:hover {
-  color: $red !important;
-}
-
 .current {
   font-size: 1.25rem !important;
   font-weight: 800;
   color: $red !important;
+}
+
+.uk-breadcrumb .not-breadcrumb span.delete-icon,
+.uk-breadcrumb .not-breadcrumb span.edit-icon {
+  transition: color 250ms ease-in-out !important;
+  cursor: pointer !important;
+}
+
+.uk-breadcrumb .not-breadcrumb span.delete-icon {
+  color: lighten($color: $red, $amount: 5);
+}
+
+.uk-breadcrumb .not-breadcrumb span.delete-icon:hover {
+  color: $red;
+}
+
+.uk-breadcrumb .not-breadcrumb span.edit-icon {
+  color: $blue;
+}
+
+.uk-breadcrumb .not-breadcrumb span.edit-icon:hover {
+  color: $external-link-dark !important;
 }
 
 .not-breadcrumb::before {

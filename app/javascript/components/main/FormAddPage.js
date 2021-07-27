@@ -40,7 +40,7 @@ const FormAddPage = () => {
     <React.Fragment>
       <Nav />
 
-      <div className="uk-section uk-padding-remove-top">
+      <div className="uk-section uk-section-form uk-padding-remove-top">
         <div className="uk-container">
           <form className="uk-grid uk-grid-small" onSubmit={handleOnSubmit}>
 

@@ -38,17 +38,15 @@ const PageItem = ({ page, full, notebook, query }) => {
         <span className="page-subheader">
           {
             isLoggedIn
-              ? (<span uk-icon="trash" style={{ marginRight: '5px' }} onClick={openModal}></span>)
+              ? (<React.Fragment>
+                <span uk-icon="trash" style={{ marginRight: '5px' }} onClick={openModal}></span>
+                <Link to={`${window.location.pathname}/${slug}/edit`}>
+                  <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
+                </Link>
+              </React.Fragment>)
               : null
           }
-
-          {
-            isLoggedIn
-              ? (<Link to={`${window.location.pathname}/${slug}/edit`}>
-                <span uk-icon="pencil" style={{ marginRight: '5px' }}></span>
-              </Link>)
-              : null
-          }
+          
           Updated as of <DayJS format="MM-DD-YYYY">{updated_at}</DayJS>
         </span>
       </div>
