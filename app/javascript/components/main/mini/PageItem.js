@@ -7,7 +7,7 @@ import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 import highlightQuery from '../../utilities/highlightQuery';
 import { AuthContext } from '../../context/AuthContext'
 
-const PageItem = ({ page, full, notebook, query }) => {
+const PageItem = ({ page, full, notebook, query, removePageFromState }) => {
   const { isLoggedIn } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
   const { language, content, subject, slug, updated_at } = page
@@ -22,7 +22,12 @@ const PageItem = ({ page, full, notebook, query }) => {
 
       {
         isLoggedIn
-          ? (<PageItemModalDelete closeModal={closeModal} isOpen={isOpen} slug={slug} />)
+          ? (<PageItemModalDelete 
+            closeModal={closeModal} 
+            isOpen={isOpen} 
+            slug={slug} 
+            removePageFromState={removePageFromState} 
+          />)
           : null
       }
 

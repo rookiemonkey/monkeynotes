@@ -39,6 +39,11 @@ const Notebook = props => {
     if (target.value == '') setSearch({ ...search, isSearching: false })
   })
 
+  const removePageFromState = useCallback(pageSlug => {
+    const newPages = state.pages.filter(({ slug }) => slug != pageSlug)
+    setState(prevState => ({ notebook: prevState.notebook, pages: newPages }))
+  })
+
   const openModalForDeletion = useCallback(() => setIsModalDeletionOpen(true), [])
   const closeModalForDeletion = useCallback(() => setIsModalDeletionOpen(false), [])
   const openModalForUpdating = useCallback(() => setIsModalUpdatingOpen(true), [])
@@ -50,22 +55,20 @@ const Notebook = props => {
 
       {
         isLoggedIn
-          ? (<NotebookItemModalDelete
-            isOpen={isModalDeletionOpen}
-            closeModal={closeModalForDeletion}
-            slug={slug}
-          />)
-          : null
-      }
+          ? (<React.Fragment>
+            <NotebookItemModalDelete
+              isOpen={isModalDeletionOpen}
+              closeModal={closeModalForDeletion}
+              slug={slug}
+            />
 
-      {
-        isLoggedIn
-          ? (<NotebookItemModalUpdate
-            isOpen={isModalUpdatingOpen}
-            closeModal={closeModalForUpdating}
-            slug={slug}
-            subject={notebook.subject}
-          />)
+            <NotebookItemModalUpdate
+              isOpen={isModalUpdatingOpen}
+              closeModal={closeModalForUpdating}
+              slug={slug}
+              subject={notebook.subject}
+            />
+          </React.Fragment>)
           : null
       }
 
@@ -108,12 +111,23 @@ const Notebook = props => {
             {
               !search.isSearching &&
               state.pages &&
-              state.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} />)
+              state.pages.map(page => <PageItem 
+                page={page} 
+                key={page.id} 
+                notebook={notebook} 
+                removePageFromState={removePageFromState}
+              />)
             }
 
             {
               search.isSearching &&
-              search.data.pages.map(page => <PageItem page={page} key={page.id} notebook={notebook} query={input.current.value} />)
+              search.data.pages.map(page => <PageItem 
+                page={page} 
+                key={page.id} 
+                notebook={notebook} 
+                query={input.current.value} 
+                removePageFromState={removePageFromState}
+              />)
             }
           </div>
         </div>

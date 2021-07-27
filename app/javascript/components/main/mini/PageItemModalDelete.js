@@ -7,12 +7,13 @@ import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const PageItemModalDelete = ({ isOpen, closeModal, slug }) => {
+const PageItemModalDelete = ({ isOpen, closeModal, slug, removePageFromState }) => {
   const modalStyle = useContext(ModalContext)
   const toastOptions = useContext(ToastContext)
 
   const handleOnDelete = useCallback(async () => {
     const response = await simplifiedFetch(`/pages/${slug}`, 'DELETE')
+    removePageFromState(slug)
     toast(response.message, toastOptions)
     closeModal()
   }, [])
