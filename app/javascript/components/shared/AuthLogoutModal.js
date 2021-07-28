@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import simplifiedFetch from '../utilities/simplifiedFetch';
 import { ToastContext } from '../context/ToastContext';
@@ -8,7 +7,7 @@ import { ModalContext } from '../context/ModalContext';
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
 const AuthLogoutModal = ({ isOpen, closeModal, loggedOut }) => {
-  const toastOptions = useContext(ToastContext)
+  const notify = useContext(ToastContext)
   const modalStyle = useContext(ModalContext)
 
   const handleOnLogout = useCallback(async e => {
@@ -17,7 +16,7 @@ const AuthLogoutModal = ({ isOpen, closeModal, loggedOut }) => {
 
     closeModal()
     loggedOut()
-    toast(response.message, toastOptions)
+    notify(response.message)
   }, [])
 
   return (

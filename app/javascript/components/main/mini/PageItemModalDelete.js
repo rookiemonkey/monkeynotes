@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import simplifiedFetch from '../../utilities/simplifiedFetch';
 import { ToastContext } from '../../context/ToastContext';
@@ -9,12 +8,12 @@ Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
 const PageItemModalDelete = ({ isOpen, closeModal, slug, removePageFromState }) => {
   const modalStyle = useContext(ModalContext)
-  const toastOptions = useContext(ToastContext)
+  const notify = useContext(ToastContext)
 
   const handleOnDelete = useCallback(async () => {
     const response = await simplifiedFetch(`/pages/${slug}`, 'DELETE')
     removePageFromState(slug)
-    toast(response.message, toastOptions)
+    notify(response.message)
     closeModal()
   }, [])
 

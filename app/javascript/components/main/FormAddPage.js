@@ -1,13 +1,12 @@
 import React, { useCallback, useState, useEffect, useContext } from 'react'
 import { TrixEditor } from "react-trix";
-import { toast } from 'react-toastify'
 import Nav from '../shared/Nav'
 import parseForm from '../utilities/parseForm';
 import simplifiedFetch from '../utilities/simplifiedFetch';
 import { ToastContext } from '../context/ToastContext';
 
 const FormAddPage = () => {
-  const toastOptions = useContext(ToastContext)
+  const notify = useContext(ToastContext)
   const [state, setState] = useState({ isNewNotebook: true, isNewCategory: true })
   const [dataFromDb, setDataFromDb] = useState({});
 
@@ -32,7 +31,7 @@ const FormAddPage = () => {
     const formData = parseForm(new FormData(e.target))
     const parameter = { page: { ...formData, content: state.html, is_update: 'false' } }
     const response = await simplifiedFetch('/pages/new', 'POST', parameter)
-    toast(response.message, toastOptions)
+    notify(response.message)
     e.target.reset();
   })
 

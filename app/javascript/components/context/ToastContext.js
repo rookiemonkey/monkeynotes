@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify'
 
 const ToastContext = React.createContext();
 
@@ -13,8 +14,10 @@ const ToastContextProvider = ({ children }) => {
     progress: undefined,
   }
 
+  const notify = message => toast(message, options)
+
   return (
-    <ToastContext.Provider value={options} >
+    <ToastContext.Provider value={notify} >
       {children}
     </ToastContext.Provider>
   )

@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState, useContext } from 'react'
-import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import parseForm from '../../utilities/parseForm'
 import simplifiedFetch from '../../utilities/simplifiedFetch';
@@ -10,7 +9,7 @@ Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
 const CategoryItemModal = ({ isOpen, closeModal, category, updateCategory, removeCategory }) => {
   const modalStyle = useContext(ModalContext)
-  const toastOptions = useContext(ToastContext)
+  const notify = useContext(ToastContext)
   const input = useRef(null)
   const [categoryName, setCategoryName] = useState(category.subject)
 
@@ -30,7 +29,7 @@ const CategoryItemModal = ({ isOpen, closeModal, category, updateCategory, remov
   const handleOnDelete = useCallback(async () => {
     const response = await simplifiedFetch(`/categories/${category.id}`, 'DELETE')
     removeCategory(category.subject)
-    toast(response.message, toastOptions)
+    notify(response.message)
     closeModal()
   })
 

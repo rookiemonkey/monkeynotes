@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState, useContext } from 'react'
-import { toast } from 'react-toastify'
 import Modal from 'react-modal'
 import parseForm from '../../utilities/parseForm';
 import simplifiedFetch from '../../utilities/simplifiedFetch';
@@ -10,7 +9,7 @@ Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
 const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNotebook }) => {
   const modalStyle = useContext(ModalContext)
-  const toastOptions = useContext(ToastContext)
+  const notify = useContext(ToastContext)
   const [notebookSubject, setNotebookSubject] = useState(subject)
   const input = useRef(null)
 
@@ -20,7 +19,7 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNote
     e.preventDefault()
     const formData = parseForm(new FormData(e.target))
     const response = await simplifiedFetch(`/notebook/${slug}`, 'PUT', formData)
-    toast(response.message, toastOptions)
+    notify(response.message)
     updateNotebook({ slug: response.data.slug, subject: response.data.subject })
     closeModal()
   })
