@@ -4,7 +4,7 @@ class CategoryController < ApplicationController
 
   def update
     raise UpdateCategoryError.new @category.errors.full_messages.first unless @category.update(subject: params[:subject])
-    render json: { message: 'Successfully updated the category' }, status: :ok
+    render json: { message: 'Successfully updated the category', data: @category }, status: :ok
   end
 
   def delete

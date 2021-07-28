@@ -25,7 +25,7 @@ class NotebookController < ApplicationController
 
   def update
     @notebook.update(subject: params[:subject])
-    render json: { message: 'Successfully updated the notebook' }, status: :ok
+    render json: { message: 'Successfully updated the notebook', data: @notebook }, status: :ok
   end
 
   private

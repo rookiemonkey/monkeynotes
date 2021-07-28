@@ -8,7 +8,7 @@ import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject }) => {
+const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNotebook }) => {
   const modalStyle = useContext(ModalContext)
   const toastOptions = useContext(ToastContext)
   const [notebookSubject, setNotebookSubject] = useState(subject)
@@ -21,6 +21,7 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject }) => {
     const formData = parseForm(new FormData(e.target))
     const response = await simplifiedFetch(`/notebook/${slug}`, 'PUT', formData)
     toast(response.message, toastOptions)
+    updateNotebook({ slug: response.data.slug, subject: response.data.subject })
     closeModal()
   })
 

@@ -30,6 +30,11 @@ const Categories = () => {
     if (target.value == '') setSearch({ ...search, isSearching: false })
   })
 
+  const removeCategoryFromState = useCallback(categorySubject => {
+    const newData = state.data.filter(category => category.subject != categorySubject)
+    setState(prevState => ({ ...prevState, data: newData }))
+  })
+
   return (
     <React.Fragment>
       <Nav />
@@ -49,7 +54,11 @@ const Categories = () => {
           {!search.isSearching && (
             <ul className="uk-list">
               {
-                state.data.map(category => <CategoryItem key={category.id} category={category} />)
+                state.data.map(category => <CategoryItem 
+                  key={category.id} 
+                  category={category} 
+                  removeCategoryFromState={removeCategoryFromState} 
+                />)
               }
             </ul>
           )}
@@ -57,7 +66,12 @@ const Categories = () => {
           {search.isSearching && (
             <ul className="uk-list">
               {
-                search.data.pages.map(page => <PageItem key={page.id} page={page} full={true} query={input.current.value} />)
+                search.data.pages.map(page => <PageItem 
+                  key={page.id} 
+                  page={page} 
+                  full={true} 
+                  query={input.current.value} 
+                />)
               }
             </ul>
           )}

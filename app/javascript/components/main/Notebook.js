@@ -11,7 +11,7 @@ import { AuthContext } from '../context/AuthContext'
 
 const Notebook = props => {
   const { isLoggedIn } = useContext(AuthContext)
-  const { notebook } = props.location.state
+  const [notebook, setNotebook] = useState(props.location.state.notebook)
   const [state, setState] = useState({})
   const [search, setSearch] = useState({ isSearching: false, hasStarted: false, id: null, data: {} })
   const [isModalDeletionOpen, setIsModalDeletionOpen] = useState(false)
@@ -44,6 +44,8 @@ const Notebook = props => {
     setState(prevState => ({ notebook: prevState.notebook, pages: newPages }))
   })
 
+  const updateNotebook = useCallback(updatedNotebook => setNotebook(updatedNotebook))
+
   const openModalForDeletion = useCallback(() => setIsModalDeletionOpen(true), [])
   const closeModalForDeletion = useCallback(() => setIsModalDeletionOpen(false), [])
   const openModalForUpdating = useCallback(() => setIsModalUpdatingOpen(true), [])
@@ -67,6 +69,7 @@ const Notebook = props => {
               closeModal={closeModalForUpdating}
               slug={slug}
               subject={notebook.subject}
+              updateNotebook={updateNotebook}
             />
           </React.Fragment>)
           : null

@@ -4,12 +4,21 @@ import DayJS from 'react-dayjs'
 import CategoryItemModal from './CategoryItemModal'
 import { AuthContext } from '../../context/AuthContext'
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = props => {
   const { isLoggedIn } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false);
+  const [category, setCategory] = useState(props.category);
 
   const openModal = useCallback(() => setIsOpen(true), [])
   const closeModal = useCallback(() => setIsOpen(false), [])
+
+  const updateCategory = useCallback(newCategorySubject => {
+    setCategory(prevCategory => ({ ...prevCategory, subject: newCategorySubject}))
+  })
+
+  const removeCategory = useCallback(categorySubject => {
+    props.removeCategoryFromState(categorySubject)
+  })
 
   return (
     <li className="category-item uk-margin-medium-bottom uk-padding-small" key={category.id}>
@@ -20,6 +29,8 @@ const CategoryItem = ({ category }) => {
             isOpen={isOpen}
             closeModal={closeModal}
             category={category}
+            updateCategory={updateCategory}
+            removeCategory={removeCategory}
           />)
           : null
       }

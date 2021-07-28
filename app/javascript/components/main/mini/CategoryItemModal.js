@@ -8,7 +8,7 @@ import { ModalContext } from '../../context/ModalContext';
 
 Modal.setAppElement(document.querySelector('[data-react-class="App"]'));
 
-const CategoryItemModal = ({ isOpen, closeModal, category }) => {
+const CategoryItemModal = ({ isOpen, closeModal, category, updateCategory, removeCategory }) => {
   const modalStyle = useContext(ModalContext)
   const toastOptions = useContext(ToastContext)
   const input = useRef(null)
@@ -22,12 +22,14 @@ const CategoryItemModal = ({ isOpen, closeModal, category }) => {
     e.preventDefault()
     const formData = parseForm(new FormData(e.target))
     const response = await simplifiedFetch(`/categories/${category.id}`, 'POST', formData)
+    updateCategory(response.data.subject)
     toast(response.message, toastOptions)
     closeModal()
   }, [])
 
   const handleOnDelete = useCallback(async () => {
     const response = await simplifiedFetch(`/categories/${category.id}`, 'DELETE')
+    removeCategory(category.subject)
     toast(response.message, toastOptions)
     closeModal()
   })
