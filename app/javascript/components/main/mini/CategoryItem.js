@@ -1,16 +1,20 @@
 import React, { useState, useCallback, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import DayJS from 'react-dayjs'
-import CategoryItemModal from './CategoryItemModal'
+import CategoryItemModalDelete from './CategoryItemModalDelete'
+import CategoryItemModalUpdate from './CategoryItemModalUpdate'
 import { AuthContext } from '../../context/AuthContext'
 
 const CategoryItem = props => {
   const { isLoggedIn } = useContext(AuthContext)
-  const [isOpen, setIsOpen] = useState(false);
-  const [category, setCategory] = useState(props.category);
+  const [isModalDeletionOpen, setIsModalDeletionOpen] = useState(false)
+  const [isModalUpdatingOpen, setIsModalUpdatingOpen] = useState(false)
+  const [category, setCategory] = useState(props.category)
 
-  const openModal = useCallback(() => setIsOpen(true), [])
-  const closeModal = useCallback(() => setIsOpen(false), [])
+  const openModalForDeletion = useCallback(() => setIsModalDeletionOpen(true), [])
+  const closeModalForDeletion = useCallback(() => setIsModalDeletionOpen(false), [])
+  const openModalForUpdating = useCallback(() => setIsModalUpdatingOpen(true), [])
+  const closeModalForUpdating = useCallback(() => setIsModalUpdatingOpen(false), [])
 
   const updateCategory = useCallback(newCategorySubject => {
     setCategory(prevCategory => ({ ...prevCategory, subject: newCategorySubject}))
@@ -25,13 +29,20 @@ const CategoryItem = props => {
 
       {
         isLoggedIn 
-          ? (<CategoryItemModal
-            isOpen={isOpen}
-            closeModal={closeModal}
-            category={category}
-            updateCategory={updateCategory}
-            removeCategory={removeCategory}
-          />)
+          ? (<React.Fragment>
+            <CategoryItemModalDelete
+              category={category}
+              isOpen={isModalDeletionOpen}
+              closeModal={closeModalForDeletion}
+              removeCategory={removeCategory}
+            />
+            <CategoryItemModalUpdate
+              category={category}
+              isOpen={isModalUpdatingOpen}
+              closeModal={closeModalForUpdating}
+              updateCategory={updateCategory}
+            />
+          </React.Fragment>)
           : null
       }
 
@@ -42,7 +53,10 @@ const CategoryItem = props => {
         <span className="category-subheader">
           {
             isLoggedIn
-              ? (<span uk-icon="pencil" style={{ marginRight: '5px' }} onClick={openModal}></span>)
+              ? (<React.Fragment>
+                <span uk-icon="trash" className="delete-icon" style={{ marginRight: '5px' }} onClick={openModalForDeletion}></span>
+                <span uk-icon="pencil" className="edit-icon" style={{ marginRight: '5px' }} onClick={openModalForUpdating}></span>
+              </React.Fragment>)
               : null
           }
           Updated as of <DayJS format="MM-DD-YYYY">{category.updated_at}</DayJS>

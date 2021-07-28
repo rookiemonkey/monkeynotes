@@ -20,6 +20,28 @@
   font-size: 0.75rem !important;
 }
 
+.category-subheader .delete-icon,
+.category-header .edit-icon {
+  transition: color 250ms ease-in-out !important;
+  cursor: pointer !important;
+}
+
+.category-subheader .delete-icon {
+  color: lighten($color: $red, $amount: 5);
+}
+
+.category-subheader .delete-icon:hover {
+  color: $red;
+}
+
+.category-header .edit-icon {
+  color: $blue;
+}
+
+.category-header .edit-icon:hover {
+  color: $external-link-dark !important;
+}
+
 .category-subheader time {
   font-weight: 600;
   color: $red;
