@@ -35,7 +35,7 @@ const CategoryItemModalUpdate = ({ isOpen, closeModal, category, updateCategory 
 
       <br />
 
-      <form className="uk-grid uk-grid-small" style={{ marginLeft: 0 }} onSubmit={handleOnUpdate}>
+      <form className="uk-grid uk-grid-small uk-flex-column" style={{ marginLeft: 0 }} onSubmit={handleOnUpdate}>
 
         <div className="uk-width-1-1 uk-margin-bottom" style={{ paddingLeft: 0 }}>
           <input type="text"

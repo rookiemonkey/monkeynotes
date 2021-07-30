@@ -15,6 +15,8 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNote
 
   const handleOnChange = useCallback(() => setNotebookSubject(input.current.value), [])
 
+  const handleOnClose = useCallback(() => { setNotebookSubject(subject); closeModal() }, [])
+
   const handleOnUpdate = useCallback(async e => {
     e.preventDefault()
     const formData = parseForm(new FormData(e.target))
@@ -28,13 +30,13 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNote
     <Modal isOpen={isOpen} style={modalStyle}>
       <div>
         Editing Notebook - {subject}
-        <span uk-icon="close" style={{ float: 'right' }} onClick={closeModal}>
+        <span uk-icon="close" style={{ float: 'right' }} onClick={handleOnClose}>
         </span>
       </div>
 
       <br />
 
-      <form className="uk-grid uk-grid-small" style={{ marginLeft: 0 }} onSubmit={handleOnUpdate}>
+      <form className="uk-grid uk-grid-small uk-flex-column" style={{ marginLeft: 0 }} onSubmit={handleOnUpdate}>
         <div className="uk-width-1-1 uk-margin-bottom" style={{ paddingLeft: 0 }}>
           <input type="text"
             className="uk-input uk-form-controls"
@@ -48,7 +50,7 @@ const NotebookItemModalUpdate = ({ isOpen, closeModal, slug, subject, updateNote
         </div>
 
         <div className="uk-width-1-1" style={{ paddingLeft: 0 }}>
-          <button type="button" className="uk-button uk-button-default" onClick={closeModal}>
+          <button type="button" className="uk-button uk-button-default" onClick={handleOnClose}>
             <span uk-icon="close" style={{ marginRight: '5px' }}></span>
             Cancel
           </button>
