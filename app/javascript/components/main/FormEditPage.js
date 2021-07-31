@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react'
+import React, { useEffect, useState, useCallback, useContext, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { TrixEditor } from "react-trix";
 import Nav from '../shared/Nav'
@@ -12,6 +12,8 @@ const FormEditPage = () => {
   const [state, setState] = useState({ isNewNotebook: false, isNewCategory: true })
   const [form, setForm] = useState({});
   const [data, setData] = useState({});
+  const [cache, setCache] = useState({});
+  const select = useRef('');
 
   useEffect(() => {
     (async () => {
@@ -20,6 +22,7 @@ const FormEditPage = () => {
       setData(res)
       setForm({ ...res.page })
       setState({ ...state, html: res.page.content.body })
+      setCache({ data: res, form: { ...res.page }, state: { ...state, html: res.page.content.body } })
     })()
   }, [])
 
@@ -39,6 +42,14 @@ const FormEditPage = () => {
     const parameter = { page: { ...formdata, content: state.html, is_update: 'true' } }
     const response = await simplifiedFetch(`/pages/${pageSlug}/update`, 'POST', parameter)
     notify(response.message)
+  })
+
+  const handleOnReset = useCallback(() => {
+    setData(cache.data);
+    setForm(cache.form);
+    [...select.current.querySelectorAll('option')].forEach(option => {
+      if (option.value == cache.data.page.notebook_id) option.selected = true
+    })
   })
 
   return (
@@ -100,12 +111,10 @@ const FormEditPage = () => {
 
               {
                 data.page && (
-                  <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption} data-state="isNewNotebook" defaultValue={data.page.notebook_id}>
+                  <select className="uk-select uk-form-controls" name="notebook_id" onChange={handleChangeOption} data-state="isNewNotebook" ref={select} defaultValue={data.page.notebook_id}>
                     <option value="new">New</option>
                     {
-                      data.notebooks && data.notebooks.map(n =>
-                        <option key={n.id} value={n.id}>{n.subject}</option>
-                      )
+                      data.notebooks && data.notebooks.map(n => <option key={n.id} value={n.id}>{n.subject}</option>)
                     }
                   </select>
                 )
@@ -154,9 +163,14 @@ const FormEditPage = () => {
             }
 
             <div className="uk-width-4-4@l">
-              <button type="submit" className="uk-button uk-button-default">
+              <button type="submit" className="uk-button uk-button-primary">
                 <span uk-icon="check" style={{ marginRight: '5px' }}></span>
                 Submit
+              </button>
+
+              <button type="button" className="uk-button uk-button-default" onClick={handleOnReset}>
+                <span uk-icon="refresh" style={{ marginRight: '5px' }}></span>
+                Reset
               </button>
             </div>
 
