@@ -9,14 +9,21 @@
   margin-top: 10px;
 }
 
+.pages-container {
+  width: 75%;
+}
+
 .pages-parent {
   margin: 0px !important;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 100%;
 }
 
 .page-item {
   box-shadow: $box-shadow;
   margin: 0px 10px;
-  width: 35%;
+  width: 44%;
   background-color: #ffff;
 }
 

@@ -8,7 +8,7 @@ import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const Categories = () => {
   const [state, setState] = useState({ isLoaded: false, data: [] });
-  const [search, setSearch] = useState({ isSearching: false, hasStarted: false, data: {} })
+  const [search, setSearch] = useState({ showCategories: true, isSearching: false, hasStarted: false, data: {} })
   const input = useRef(null);
 
   useEffect(() => {
@@ -21,13 +21,13 @@ const Categories = () => {
 
   const handleSearch = useCallback(async e => {
     e.preventDefault()
-    setSearch({ hasStarted: true, ...search })
+    setSearch({ ...search, hasStarted: true, showCategories: false })
     const data = await simplifiedFetch(`/search/pages`, 'POST', { search: input.current.value })
-    setSearch({ hasStarted: false, isSearching: true, data: data })
+    setSearch({ ...search, hasStarted: false, isSearching: true, data: data })
   })
 
   const handleChange = useCallback(({ target }) => {
-    if (target.value == '') setSearch({ ...search, isSearching: false })
+    if (target.value == '') setSearch({ ...search, isSearching: false, showCategories: true })
   })
 
   const removeCategoryFromState = useCallback(categorySubject => {
@@ -49,9 +49,10 @@ const Categories = () => {
             </div>
           </form>
 
-          {(!state.isLoaded || search.hasStarted) && <Loader />}
+          {search.hasStarted && <Loader />}
 
-          {!search.isSearching && (
+          {!search.isSearching &&
+          search.showCategories && (
             <ul className="uk-list">
               {
                 state.data.map(category => <CategoryItem 
