@@ -110,28 +110,31 @@ const Notebook = props => {
 
           {search.isSearching && !search.data.count && <NoResult query={input.current.value} />}
 
-          <div uk-grid="masonry: true" className="pages-parent uk-flex-center">
-            {
-              !search.isSearching &&
-              state.pages &&
-              state.pages.map(page => <PageItem 
-                page={page} 
-                key={page.id} 
-                notebook={notebook} 
-                removePageFromState={removePageFromState}
-              />)
-            }
+          <div className="pages-container">
+            <div uk-grid="masonry: true" className="pages-parent">
+              {
+                !search.isSearching &&
+                state.pages &&
+                state.pages.map(page => <PageItem
+                  page={page}
+                  key={page.id}
+                  notebook={notebook}
+                  removePageFromState={removePageFromState}
+                />)
+              }
 
-            {
-              search.isSearching &&
-              search.data.pages.map(page => <PageItem 
-                page={page} 
-                key={page.id} 
-                notebook={notebook} 
-                query={input.current.value} 
-                removePageFromState={removePageFromState}
-              />)
-            }
+              {
+                search.isSearching &&
+                !search.hasStarted &&
+                search.data.pages.map(page => <PageItem
+                  page={page}
+                  key={page.id}
+                  notebook={notebook}
+                  query={input.current.value}
+                  removePageFromState={removePageFromState}
+                />)
+              }
+            </div>
           </div>
         </div>
       </div>
