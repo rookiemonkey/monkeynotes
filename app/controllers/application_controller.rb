@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-
+  
+  include Pagy::Backend
   include Exceptions::MonkeynoteErrors
   rescue_from ActiveRecord::RecordNotFound, with: :bad_request_error
   rescue_from AuthenticationError,          with: :bad_request_error
