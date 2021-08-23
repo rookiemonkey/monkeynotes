@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import NoResults from '../shared/NoResults'
+import Pagination from '../shared/Pagination'
 import PageItem from './mini/PageItem'
 import CategoryItem from './mini/CategoryItem'
 import simplifiedFetch from '../utilities/simplifiedFetch';
@@ -19,12 +20,13 @@ const Categories = () => {
     })()
   }, [])
 
-  const handleSearch = useCallback(async e => {
-    e.preventDefault()
+  const toSearch = useCallback(async (page = 1) => {
     setSearch({ ...search, hasStarted: true, showCategories: false })
-    const data = await simplifiedFetch(`/search/pages`, 'POST', { search: input.current.value })
+    const data = await simplifiedFetch(`/search/pages?page=${page}`, 'POST', { search: input.current.value })
     setSearch({ ...search, hasStarted: false, isSearching: true, data: data })
   })
+
+  const handleSearch = useCallback(async e => { e.preventDefault(); await toSearch(); })
 
   const handleChange = useCallback(({ target }) => {
     if (target.value == '') setSearch({ ...search, isSearching: false, showCategories: true })
@@ -64,17 +66,23 @@ const Categories = () => {
             </ul>
           )}
 
-          {search.isSearching && (
-            <ul className="uk-list">
-              {
-                search.data.pages.map(page => <PageItem 
-                  key={page.id} 
-                  page={page} 
-                  full={true} 
-                  query={input.current.value} 
-                />)
-              }
-            </ul>
+          {(search.isSearching && search.data.pages.length) && (
+            <React.Fragment>
+              <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />
+
+              <ul className="uk-list">
+                {
+                  search.data.pages.map(page => <PageItem
+                    key={page.id}
+                    page={page}
+                    full={true}
+                    query={input.current.value}
+                  />)
+                }
+              </ul>
+
+              <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />
+            </React.Fragment>
           )}
 
           {(search.isSearching && !search.data.pages.length) && <NoResults query={input.current.value} />}
