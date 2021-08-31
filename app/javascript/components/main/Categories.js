@@ -66,26 +66,26 @@ const Categories = () => {
             </ul>
           )}
 
-          {(search.isSearching && search.data.pages.length) && (
+          {(search.isSearching && !search.hasStarted && search.data.pages.length > 0) && (
             <React.Fragment>
               <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />
 
-              <ul className="uk-list">
-                {
-                  search.data.pages.map(page => <PageItem
-                    key={page.id}
-                    page={page}
-                    full={true}
-                    query={input.current.value}
-                  />)
-                }
-              </ul>
+                <ul className="uk-list">
+                  {
+                    search.data.pages.map(page => <PageItem
+                      key={page.id}
+                      page={page}
+                      full={true}
+                      query={input.current.value}
+                    />)
+                  }
+                </ul>
 
               <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />
             </React.Fragment>
           )}
 
-          {(search.isSearching && !search.data.pages.length) && <NoResults query={input.current.value} />}
+          {(search.isSearching && search.data.pages.length === 0) && <NoResults query={input.current.value} />}
 
         </div>
       </div >
