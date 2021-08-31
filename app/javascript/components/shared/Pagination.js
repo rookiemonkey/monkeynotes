@@ -25,7 +25,13 @@ const Pagination = ({ data, numPagesToShow, toSearch }) => {
   return (
     <ul className="uk-pagination uk-margin uk-flex-center">
       {
-        prevPages.length >= 1 && (
+        (data.page > 1) && (
+          <li><a onClick={() => toSearch(1)}><span uk-icon="chevron-double-left"></span></a></li>
+        )
+      }
+
+      {
+        (prevPages.length >= 1) && (
           <li><a onClick={() => toSearch(data.page - 1)}><span uk-icon="chevron-left"></span></a></li>
         )
       }
@@ -49,8 +55,14 @@ const Pagination = ({ data, numPagesToShow, toSearch }) => {
       }
 
       {
-        nextPages.length >= 1 && (
+        (nextPages.length >= 1) && (
           <li><a onClick={() => toSearch(data.page + 1)}><span uk-icon="chevron-right"></span></a></li>
+        )
+      }
+
+      {
+        (data.page < data.last) && (
+          <li><a onClick={() => toSearch(data.last)}><span uk-icon="chevron-double-right"></span></a></li>
         )
       }
     </ul>
