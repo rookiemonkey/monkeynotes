@@ -30,8 +30,9 @@ ruby          = Notebook.create subject: 'Ruby', category: vanilla
 
 
 # PAGES
+num_of_pages = 500
 
-20.times do |i|
+num_of_pages.times do |i|
   html = <<-HTML
     <p>Content for #{javascript.subject} #{i}</p>
     <pre>
@@ -51,8 +52,10 @@ ruby          = Notebook.create subject: 'Ruby', category: vanilla
                                   language: 'javascript')
 end
 
+puts "Created #{num_of_pages} Javascript Pages"
 
-20.times do |i|
+
+num_of_pages.times do |i|
   html = <<-HTML
     <p>Content for #{php.subject} #{i}</p>
     <pre>
@@ -69,8 +72,10 @@ end
                           language: 'php')
 end
 
+puts "Created #{num_of_pages} PHP Pages"
 
-20.times do |i|
+
+num_of_pages.times do |i|
   html = <<-HTML
     <p>Content for #{expressjs.subject} #{i}</p>
     <pre>
@@ -93,8 +98,10 @@ end
                                 language: 'javascript')
 end
 
+puts "Created #{num_of_pages} Express JS Pages"
 
-20.times do |i|
+
+num_of_pages.times do |i|
   html = <<-HTML
     <p>Content for #{laravel.subject} #{i}</p>
     <pre>
@@ -121,8 +128,10 @@ end
                                 language: 'php')
 end
 
+puts "Created #{num_of_pages} Laravel Pages"
 
-20.times do |i|
+
+num_of_pages.times do |i|
   html = <<-HTML
     <p>Content for #{ruby.subject} #{i}</p>
     <pre>
@@ -137,3 +146,5 @@ end
                             content: html,
                             language: 'ruby')
 end
+
+puts "Created #{num_of_pages} Ruby Pages"

@@ -17,13 +17,13 @@ class HomeController < ApplicationController
   end
 
   def search_from_categories
-    pages = search_results
-    render json: { pages: pages, count: pages.length }
+    pagy, pages = pagy(search_results)
+    render json: { pages: pages, count: pages.length, pagination: pagy }
   end
 
   def search_from_notebooks
-    pages = search_results.where(notebook_id: params[:notebook_id])
-    render json: { pages: pages, count: pages.length }
+    pagy, pages = pagy(search_results.where(notebook_id: params[:notebook_id]))
+    render json: { pages: pages, count: pages.length, pagination: pagy }
   end
 
 

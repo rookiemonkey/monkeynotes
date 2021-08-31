@@ -21,6 +21,7 @@
 }
 
 .page-item {
+  box-sizing: border-box;
   box-shadow: $box-shadow;
   margin: 0px 10px;
   width: 44%;

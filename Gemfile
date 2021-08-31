@@ -58,3 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "react-rails", "~> 2.6"
 
 gem "figaro", "~> 1.2"
+
+gem "pagy", "~> 4.10"
