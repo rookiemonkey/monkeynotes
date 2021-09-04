@@ -6,9 +6,11 @@ import PageItemModalDelete from './PageItemModalDelete';
 import styleCodeBlocks from '../../utilities/styleCodeBlocks';
 import highlightQuery from '../../utilities/highlightQuery';
 import { AuthContext } from '../../context/AuthContext'
+import { NotebooksContext } from '../../context/NotebooksContext'
 
 const PageItem = ({ page, full, notebook, query, removePageFromState }) => {
   const { isLoggedIn } = useContext(AuthContext)
+  const { notebookMap } = useContext(NotebooksContext)
   const [isOpen, setIsOpen] = useState(false)
   const { language, content, subject, slug, updated_at } = page
   let html = styleCodeBlocks(content.body, language);
@@ -35,7 +37,7 @@ const PageItem = ({ page, full, notebook, query, removePageFromState }) => {
         <h4>
           <Link className="page-header"
             to={{
-              pathname: `${window.location.pathname}/${slug}`,
+              pathname: `/notebook/${notebookMap[page.notebook_id]}/${slug}`,
               state: { notebook: { ...notebook }, page: { subject } }
             }}
           >{subject}</Link>

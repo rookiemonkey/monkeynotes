@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
+import React, { useCallback, useEffect, useState, useRef, useContext } from 'react'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import NoResults from '../shared/NoResults'
 import Pagination from '../shared/Pagination'
 import PageItem from './mini/PageItem'
 import CategoryItem from './mini/CategoryItem'
+import { NotebooksContext } from '../context/NotebooksContext'
 import simplifiedFetch from '../utilities/simplifiedFetch';
 
 const Categories = () => {
+  const { defineNotebookMap } = useContext(NotebooksContext);
   const [state, setState] = useState({ isLoaded: false, data: [] });
   const [search, setSearch] = useState({ showCategories: true, isSearching: false, hasStarted: false, data: {} })
   const input = useRef(null);
@@ -17,6 +19,7 @@ const Categories = () => {
       const raw = await fetch('/notebook/all')
       const data = await raw.json()
       setState({ isLoaded: true, data })
+      defineNotebookMap(data)
     })()
   }, [])
 
