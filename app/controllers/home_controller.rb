@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   end
 
   def search_from_notebooks
-    pagy, pages = pagy(search_results.where(notebook_id: params[:notebook_id]))
+    pagy, pages = pagy(search_results.where(notebook_id: params[:notebook_id]).order(updated_at: :desc))
     render json: { pages: pages, count: pages.length, pagination: pagy }
   end
 

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Nav from '../shared/Nav'
 import Loader from '../shared/Loader'
 import NoResult from '../shared/NoResults'
+import Pagination from '../shared/Pagination'
 import PageItem from './mini/PageItem'
 import NotebookItemModalDelete from './mini/NotebookItemModalDelete'
 import NotebookItemModalUpdate from './mini/NotebookItemModalUpdate'
@@ -28,12 +29,13 @@ const Notebook = props => {
     })()
   }, [])
 
-  const handleSearch = useCallback(async e => {
-    e.preventDefault()
+  const toSearch = useCallback(async (page = 1) => {
     setSearch({ ...search, hasStarted: true })
-    const data = await simplifiedFetch(`/search/${search.id}/pages`, 'POST', { search: input.current.value })
+    const data = await simplifiedFetch(`/search/${search.id}/pages?page=${page}`, 'POST', { search: input.current.value })
     setSearch({ ...search, hasStarted: false, isSearching: true, data: data })
   })
+
+  const handleSearch = useCallback(async e => { e.preventDefault(); await toSearch(); })
 
   const handleChange = useCallback(({ target }) => {
     if (target.value == '') setSearch({ ...search, isSearching: false })
@@ -110,6 +112,10 @@ const Notebook = props => {
 
           {search.isSearching && !search.data.count && <NoResult query={input.current.value} />}
 
+          {!search.isSearching && state.pages && <Pagination data={state.pagination} numPagesToShow={5} toSearch={toSearch} />}
+
+          {search.isSearching && !search.hasStarted && <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />}
+
           <div className="pages-container">
             <div uk-grid="masonry: true" className="pages-parent">
               {
@@ -135,6 +141,11 @@ const Notebook = props => {
                 />)
               }
             </div>
+
+            {!search.isSearching && state.pages && <Pagination data={state.pagination} numPagesToShow={5} toSearch={toSearch} />}
+
+            {search.isSearching && !search.hasStarted && <Pagination data={search.data.pagination} numPagesToShow={5} toSearch={toSearch} />}
+
           </div>
         </div>
       </div>

@@ -15,7 +15,8 @@ class NotebookController < ApplicationController
   end
 
   def notebook
-    render json: { notebook: @notebook, pages: @notebook.pages.order(updated_at: :desc) }
+    pagy, pages = pagy(@notebook.pages.order(updated_at: :desc))
+    render json: { notebook: @notebook, pages: pages, pagination: pagy }
   end
 
   def delete
